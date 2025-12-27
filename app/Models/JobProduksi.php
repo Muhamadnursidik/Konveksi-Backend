@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class JobProduksi extends Model
+{
+    protected $table = 'job_produksi';
+
+    protected $fillable = [
+        'model_pakaian_id',
+        'jumlah_target',
+        'status'
+    ];
+
+    public function modelPakaian()
+    {
+        return $this->belongsTo(ModelPakaian::class);
+    }
+
+    public function penggunaanBahan()
+    {
+        return $this->hasMany(PenggunaanBahan::class);
+    }
+
+    public function pemotongan()
+    {
+        return $this->hasOne(Pemotongan::class);
+    }
+
+    public function penjahitan()
+    {
+        return $this->hasOne(Penjahitan::class);
+    }
+
+    public function finishing()
+    {
+        return $this->hasOne(Finishing::class);
+    }
+
+    public function produkJadi()
+    {
+        return $this->hasOne(ProdukJadi::class);
+    }
+}
