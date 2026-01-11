@@ -1,16 +1,18 @@
 <?php
 
+use App\Http\Controllers\Admin\BahanBakuController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\Admin\ModelPakaianController;
 use App\Http\Controllers\Pemotong\DashboardController as PemotongDashboard;
 use App\Http\Controllers\Penjahit\DashboardController as PenjahitDashboard;
 use App\Http\Controllers\Finishing\DashboardController as FinishingDashboard;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', fn () => redirect('/login'));
 
@@ -40,8 +42,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth','role:admin'])
     ->prefix('admin')
     ->group(function () {
-        Route::get('/dashboard', [AdminDashboard::class, 'index'])
-            ->name('admin.dashboard');
+        Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('admin.dashboard');
+        Route::resource('bahan-baku', BahanBakuController::class)->names('admin.bahan-baku');
+        Route::resource('model-pakaian', ModelPakaianController::class)->names('admin.model-pakaian');
     });
 
 Route::middleware(['auth','role:pemotong'])

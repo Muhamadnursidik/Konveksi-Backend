@@ -12,7 +12,6 @@ class BahanBaku extends Model
         'nama_bahan',
         'warna',
         'stok_meter',
-        'pemasok',
         'keterangan'
     ];
 

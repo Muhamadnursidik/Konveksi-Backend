@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nama_bahan');
             $table->string('warna');
             $table->decimal('stok_meter', 10, 2);
-            $table->string('pemasok')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

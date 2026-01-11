@@ -13,8 +13,7 @@ class ModelPakaian extends Model
         'kategori',
         'ukuran',
         'warna',
-        'kebutuhan_bahan',
-        'estimasi_waktu'
+        'kebutuhan_bahan'
     ];
 
     public function jobProduksi()

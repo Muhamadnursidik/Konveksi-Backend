@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('ukuran');
             $table->string('warna');
             $table->decimal('kebutuhan_bahan', 10, 2); // meter
-            $table->integer('estimasi_waktu');         // menit
             $table->timestamps();
         });
 
