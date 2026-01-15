@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', ['admin', 'pemotong', 'penjahit', 'finishing']);
+            $table->string('photo')->nullable(); // foto profil
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
 

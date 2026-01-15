@@ -15,28 +15,36 @@ class UserSeeder extends Seeder
             'name' => 'Admin Konveksi',
             'email' => 'admin@konveksi.test',
             'password' => Hash::make('password'),
-            'role' => 'admin'
+            'role' => 'admin',
+            'photo' => 'null',
+            'is_active' => true
         ]);
 
         User::create([
             'name' => 'Pemotong',
             'email' => 'pemotong@konveksi.test',
             'password' => Hash::make('password'),
-            'role' => 'pemotong'
+            'role' => 'pemotong',
+            'photo' => 'null',
+            'is_active' => true
         ]);
 
         User::create([
             'name' => 'Penjahit',
             'email' => 'penjahit@konveksi.test',
             'password' => Hash::make('password'),
-            'role' => 'penjahit'
+            'role' => 'penjahit',
+            'photo' => 'null',
+            'is_active' => true
         ]);
 
         User::create([
             'name' => 'Finishing',
             'email' => 'finishing@konveksi.test',
             'password' => Hash::make('password'),
-            'role' => 'finishing'
+            'role' => 'finishing',
+            'photo' => 'null',
+            'is_active' => true
         ]);
     }
 }

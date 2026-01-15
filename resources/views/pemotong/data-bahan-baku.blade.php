@@ -3,15 +3,15 @@
 <!-- [Head] start -->
 
 <head>
-    @include('layouts/admin/head-page-meta', ['title' => 'Home'])
-    @include('layouts/admin/head-css')
+    @include('layouts/pemotong/head-page-meta', ['title' => 'Home'])
+    @include('layouts/pemotong/head-css')
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
 <body>
-    @include('layouts/admin/sidebar')
-    @include('layouts/admin/navbar')
+    @include('layouts/pemotong/sidebar')
+    @include('layouts/pemotong/navbar')
 
     <!-- [ Main Content ] start -->
     <div class="pc-container">
@@ -23,7 +23,7 @@
                         <h5 class="mb-0 font-medium">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.bahan-baku.index') }}">Bahan Baku</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('pemotong.data-bahan-baku.index') }}">Data Bahan Baku</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
                     </ul>
                 </div>
@@ -34,10 +34,6 @@
                 <div class="card table-card">
                     <div class="card-header flex justify-between items-center">
                         <h5>Data Bahan Baku</h5>
-                        
-                        <a href="{{ route('admin.bahan-baku.create') }}" class="btn btn-primary btn-sm">
-                            Tambah
-                        </a>
                     </div>
                     
                     <div class="card-body">
@@ -50,7 +46,6 @@
                                         <th>Warna</th>
                                         <th>Stok (Meter)</th>
                                         <th>Keterangan</th>
-                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -60,21 +55,6 @@
                                             <td>{{ $row->warna }}</td>
                                             <td>{{ $row->stok_meter }}</td>
                                             <td>{{ $row->keterangan ?? '-' }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.bahan-baku.edit', $row->id) }}"class="btn btn-sm bg-theme-bg-1 text-white">
-                                                    Edit
-                                                </a>
-
-                                                <form method="POST"
-                                                    action="{{ route('admin.bahan-baku.destroy', $row->id) }}"
-                                                    class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Yakin mau hapus?')" class="btn btn-sm btn-danger text-white">
-                                                        Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -94,8 +74,8 @@
         </div>
     </div>
     <!-- [ Main Content ] end -->
-    @include('layouts/admin/footer-block')
-    @include('layouts/admin/footer-js')
+    @include('layouts/pemotong/footer-block')
+    @include('layouts/pemotong/footer-js')
 </body>
 <!-- [Body] end -->
 

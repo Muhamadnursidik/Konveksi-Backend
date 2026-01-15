@@ -52,9 +52,9 @@
                         </span><span class="pc-mtext">User & Role</span><span class="pc-arrow"><i
                                 class="ti ti-chevron-right"></i></span></a>
                     <ul class="pc-submenu">
-                        <li class="pc-item"><a class="pc-link" href="#!">Pemotong</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Penjahit</a></li>
-                        <li class="pc-item"><a class="pc-link" href="#!">Finishing</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('admin.pemotong.index')}}">Pemotong</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('admin.penjahit.index') }}">Penjahit</a></li>
+                        <li class="pc-item"><a class="pc-link" href="{{ route('admin.finishing.index') }}">Finishing</a></li>
                     </ul>
                 </li>
 
@@ -63,17 +63,17 @@
                     <i data-feather="sidebar"></i>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="../elements/bc_typography.html" class="pc-link">
+                    <a href="{{ route('admin.job-produksi.index') }}" class="pc-link">
                         <span class="pc-micon"><i class="bi bi-activity"></i></span>
                         <span class="pc-mtext">Data Produksi</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="../elements/bc_typography.html" class="pc-link">
                         <span class="pc-micon"><i class="bi bi-clipboard-pulse"></i></i></span>
                         <span class="pc-mtext">Monitoring Produksi</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="pc-item pc-caption">
                     <label>Produk Jadi</label>

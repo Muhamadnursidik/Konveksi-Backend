@@ -77,7 +77,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button onclick="return confirm('Yakin mau hapus?')"
-                                                        class="btn btn-sm bg-danger text-white border-0">
+                                                        class="btn btn-sm btn-danger text-white border-0">
                                                         Hapus
                                                     </button>
                                                 </form>

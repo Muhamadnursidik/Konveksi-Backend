@@ -23,54 +23,73 @@
                         <h5 class="mb-0 font-medium">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.bahan-baku.index') }}">Bahan Baku</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.pemotong.index') }}">Daftar Pemotong</a>
+                        </li>
                         <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
                     </ul>
                 </div>
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-            <div class="col-span-12 xl:col-span-8 md:col-span-6">
+            <div class="col-span-12">
                 <div class="card table-card">
                     <div class="card-header flex justify-between items-center">
-                        <h5>Data Bahan Baku</h5>
-                        
-                        <a href="{{ route('admin.bahan-baku.create') }}" class="btn btn-primary btn-sm">
+                        <h5>Data Akun Pemotong</h5>
+
+                        <a href="{{ route('admin.pemotong.create') }}" class="btn btn-primary btn-sm">
                             Tambah
                         </a>
                     </div>
-                    
+
                     <div class="card-body">
                         <x-alert />
+
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
+                                        <th>foto</th>
                                         <th>Nama</th>
-                                        <th>Warna</th>
-                                        <th>Stok (Meter)</th>
-                                        <th>Keterangan</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    @forelse ($data as $row)
+                                    @forelse ($users as $row)
                                         <tr>
-                                            <td>{{ $row->nama_bahan }}</td>
-                                            <td>{{ $row->warna }}</td>
-                                            <td>{{ $row->stok_meter }}</td>
-                                            <td>{{ $row->keterangan ?? '-' }}</td>
                                             <td>
-                                                <a href="{{ route('admin.bahan-baku.edit', $row->id) }}"class="btn btn-sm bg-theme-bg-1 text-white">
+                                                @if ($row->photo)
+                                                    <img src="{{ asset('storage/' . $row->photo) }}" width="40" class="rounded-circle"
+                                                        alt="{{ $row->name }}">
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>{{ $row->name }}</td>
+                                            <td>{{ $row->email }}</td>
+                                            <td>
+                                                @if ($row->is_active)
+                                                    <span class="badge btn-success">Aktif</span>
+                                                @else
+                                                    <span class="badge btn-danger">Nonaktif</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('admin.pemotong.edit', $row->id) }}"
+                                                    class="btn btn-sm bg-theme-bg-1 text-white">
                                                     Edit
                                                 </a>
 
                                                 <form method="POST"
-                                                    action="{{ route('admin.bahan-baku.destroy', $row->id) }}"
+                                                    action="{{ route('admin.pemotong.destroy', $row->id) }}"
                                                     class="inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Yakin mau hapus?')" class="btn btn-sm btn-danger text-white">
+
+                                                    <button onclick="return confirm('Yakin mau hapus akun ini?')"
+                                                        class="btn btn-sm btn-danger text-white border-0">
                                                         Hapus
                                                     </button>
                                                 </form>
@@ -79,7 +98,7 @@
                                     @empty
                                         <tr>
                                             <td colspan="5" class="text-center text-muted">
-                                                Data kosong
+                                                Data akun pemotong masih kosong
                                             </td>
                                         </tr>
                                     @endforelse
