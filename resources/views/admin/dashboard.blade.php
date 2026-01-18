@@ -1,201 +1,128 @@
 <!doctype html>
-<html lang="en">
-  <!-- [Head] start -->
-
-  <head>
-    @include('layouts/admin/head-page-meta', ['title' => 'Home'])
+<html lang="id">
+<head>
+    @include('layouts/admin/head-page-meta', ['title' => 'Dashboard Admin'])
     @include('layouts/admin/head-css')
-  </head>
-  <!-- [Head] end -->
-  <!-- [Body] Start -->
+</head>
 
-  <body>
-    @include('layouts/admin/sidebar')
-    @include('layouts/admin/navbar')
+<body>
+@include('layouts/admin/sidebar')
+@include('layouts/admin/navbar')
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-      <div class="pc-content">
-        @include('layouts/admin/breadcrumb', ['breadcrumb-item' => 'Dashboard', 'Dashboard Admin' => 'Default'])
-        <!-- [ Main Content ] start -->
-        <div class="grid grid-cols-12 gap-x-6">
-          <div class="col-span-12 xl:col-span-4 md:col-span-6">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Daily Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-up text-success-500 text-[30px] mr-1.5"></i>
-                    $ 249.95
-                  </h3>
-                  <p class="mb-0">67%</p>
+<div class="pc-container">
+<div class="pc-content">
+
+@include('layouts/admin/breadcrumb', [
+    'breadcrumb-item' => 'Dashboard',
+    'Dashboard Admin' => 'Overview'
+])
+
+{{-- ===== SUMMARY CARD ===== --}}
+<div class="grid grid-cols-12 gap-x-6 mb-6">
+
+    {{-- TOTAL JOB --}}
+    <div class="col-span-12 md:col-span-6 xl:col-span-3">
+        <div class="card bg-theme-bg-1 text-black">
+            <div class="card-body flex items-center justify-between">
+                <div>
+                    <p class="mb-1 text-black/70">Total Job Produksi</p>
+                    <h3 class="mb-0">{{ $totalJob }}</h3>
                 </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-1 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 75%"></div>
-                </div>
-              </div>
+                <i class="feather icon-layers text-[40px] opacity-70"></i>
             </div>
-          </div>
-          <div class="col-span-12 xl:col-span-4 md:col-span-6">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Monthly Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-down text-danger-500 text-[30px] mr-1.5"></i>
-                    $ 2.942.32
-                  </h3>
-                  <p class="mb-0">36%</p>
-                </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-2 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 35%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 xl:col-span-4">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Yearly Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-up text-success-500 text-[30px] mr-1.5"></i>
-                    $8.638.32
-                  </h3>
-                  <p class="mb-0">80%</p>
-                </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-1 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 80%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 xl:col-span-8 md:col-span-6">
-            <div class="card table-card">
-              <div class="card-header">
-                <h5>Recent Users</h5>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <tbody>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-1.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Isabella Christensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            11 MAY 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-2.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Mathilde Andersen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-danger text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            11 MAY 10:35
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-3.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Karla Sorensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            9 MAY 17:38
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-1.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Ida Jorgensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted f-w-300">
-                            <i class="fas fa-circle text-danger text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            19 MAY 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-2.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Albert Andersen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            21 July 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <!-- [ Main Content ] end -->
-      </div>
     </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/admin/footer-block') 
-    @include('layouts/admin/footer-js')
-  </body>
-  <!-- [Body] end -->
+
+    {{-- JOB AKTIF --}}
+    <div class="col-span-12 md:col-span-6 xl:col-span-3">
+        <div class="card bg-warning-500 text-black">
+            <div class="card-body flex items-center justify-between">
+                <div>
+                    <p class="mb-1 text-black/70">Job Aktif</p>
+                    <h3 class="mb-0">{{ $jobAktif }}</h3>
+                </div>
+                <i class="feather icon-refresh-cw text-[40px] opacity-70"></i>
+            </div>
+        </div>
+    </div>
+
+    {{-- JOB SELESAI --}}
+    <div class="col-span-12 md:col-span-6 xl:col-span-3">
+        <div class="card bg-success-500 text-black">
+            <div class="card-body flex items-center justify-between">
+                <div>
+                    <p class="mb-1 text-black/70">Job Selesai</p>
+                    <h3 class="mb-0">{{ $jobSelesai }}</h3>
+                </div>
+                <i class="feather icon-check-circle text-[40px] opacity-70"></i>
+            </div>
+        </div>
+    </div>
+
+    {{-- TOTAL TARGET --}}
+    <div class="col-span-12 md:col-span-6 xl:col-span-3">
+        <div class="card bg-primary-500 text-black">
+            <div class="card-body flex items-center justify-between">
+                <div>
+                    <p class="mb-1 text-black/70">Target Produksi</p>
+                    <h3 class="mb-0">{{ number_format($totalTarget) }}</h3>
+                </div>
+                <i class="feather icon-package text-[40px] opacity-70"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{{-- ===== TABEL MONITORING PRODUKSI ===== --}}
+<div class="grid grid-cols-12 gap-x-6 mb-6">
+    <div class="col-span-12">
+        <div class="card table-card">
+            <div class="card-header">
+                <h5>Monitoring Produksi</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Target</th>
+                                <th>Status</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($jobTerbaru as $job)
+                            <tr>
+                                <td>{{ $job->modelPakaian->nama_model }}</td>
+                                <td>{{ $job->jumlah_target }}</td>
+                                <td>
+                                    <span class="badge
+                                        @if($job->status=='menunggu') bg-secondary
+                                        @elseif($job->status=='dipotong') bg-info
+                                        @elseif($job->status=='dijahit') bg-warning
+                                        @elseif($job->status=='finishing') bg-primary
+                                        @else bg-success @endif
+                                    ">
+                                        {{ ucfirst($job->status) }}
+                                    </span>
+                                </td>
+                                <td>{{ $job->created_at->format('d M Y') }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+@include('layouts/admin/footer-block')
+@include('layouts/admin/footer-js')
+</body>
 </html>

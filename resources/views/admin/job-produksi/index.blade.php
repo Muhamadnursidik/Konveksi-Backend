@@ -45,6 +45,7 @@
                             <thead>
                                 <tr>
                                     <th>Model Pakaian</th>
+                                    <th>Bahan Baku</th>
                                     <th>Target Produksi (jumlah)</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
@@ -54,6 +55,7 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td>{{ $item->modelPakaian->nama_model }}</td>
+                                        <td>{{ $item->bahanBaku->nama_bahan }}</td>
                                         <td>{{ $item->jumlah_target }}</td>
                                         <td>
                                             <span

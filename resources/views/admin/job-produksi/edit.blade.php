@@ -37,6 +37,17 @@
                 </div>
 
                 <div class="mb-3">
+                    <label class="form-label">Bahan Baku</label>
+                    <select name="bahan_baku_id" class="form-select" required>
+                        @foreach ($bahanBaku as $b)
+                            <option value="{{ $b->id }}" @selected($jobProduksi->bahan_baku_id == $b->id)>
+                                {{ $b->nama_bahan }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
                     <label class="form-label">Target Produksi</label>
                     <input type="number" name="jumlah_target" class="form-control"
                         value="{{ $jobProduksi->jumlah_target }}" required>

@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('job_produksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('model_pakaian_id')->constrained('model_pakaian');
+            $table->foreignId('bahan_baku_id')->constrained('bahan_baku');
             $table->integer('jumlah_target');
+            $table->decimal('kebutuhan_bahan_total', 10, 2); // meter
             $table->enum('status', [
                 'menunggu',
                 'dipotong',

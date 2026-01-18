@@ -10,13 +10,20 @@ class JobProduksi extends Model
 
     protected $fillable = [
         'model_pakaian_id',
+        'bahan_baku_id',
         'jumlah_target',
+        'kebutuhan_bahan_total',
         'status'
     ];
 
     public function modelPakaian()
     {
         return $this->belongsTo(ModelPakaian::class);
+    }
+
+    public function bahanBaku()
+    {
+        return $this->belongsTo(BahanBaku::class);
     }
 
     public function penggunaanBahan()

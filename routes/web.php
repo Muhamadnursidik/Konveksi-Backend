@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PenjahitController;
 use App\Http\Controllers\Finishing\DashboardController as FinishingDashboard;
 use App\Http\Controllers\Pemotong\DashboardController as PemotongDashboard;
 use App\Http\Controllers\Pemotong\DataBahanBakuController;
+use App\Http\Controllers\Pemotong\JobPotongController;
 use App\Http\Controllers\Penjahit\DashboardController as PenjahitDashboard;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,12 @@ Route::middleware(['auth', 'role:pemotong'])
     ->group(function () {
         Route::get('/dashboard', [PemotongDashboard::class, 'index'])->name('pemotong.dashboard');
         Route::resource('data-bahan-baku', DataBahanBakuController::class)->names('pemotong.data-bahan-baku');
+        Route::get('/job-potong', [JobPotongController::class, 'index'])
+            ->name('pemotong.job-potong.index');
+        Route::post('/job-potong/{job}/selesai', [JobPotongController::class, 'selesai'])
+            ->name('pemotong.job-potong.selesai');
+        Route::get('/riwayat-potong', [JobPotongController::class, 'riwayat'])
+            ->name('pemotong.job-potong.riwayat');
     });
 
 Route::middleware(['auth', 'role:penjahit'])

@@ -1,201 +1,134 @@
 <!doctype html>
 <html lang="en">
-  <!-- [Head] start -->
+<!-- [Head] start -->
 
-  <head>
+<head>
     @include('layouts/pemotong/head-page-meta', ['title' => 'Home'])
     @include('layouts/pemotong/head-css')
-  </head>
-  <!-- [Head] end -->
-  <!-- [Body] Start -->
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
 
-  <body>
+<body>
     @include('layouts/pemotong/sidebar')
     @include('layouts/pemotong/navbar')
 
     <!-- [ Main Content ] start -->
     <div class="pc-container">
-      <div class="pc-content">
-        @include('layouts/pemotong/breadcrumb', ['breadcrumb-item' => 'Dashboard', 'Dashboard Pemotong' => 'Default'])
-        <!-- [ Main Content ] start -->
-        <div class="grid grid-cols-12 gap-x-6">
-          <div class="col-span-12 xl:col-span-4 md:col-span-6">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Daily Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-up text-success-500 text-[30px] mr-1.5"></i>
-                    $ 249.95
-                  </h3>
-                  <p class="mb-0">67%</p>
+        <div class="pc-content">
+            @include('layouts/pemotong/breadcrumb', [
+                'breadcrumb-item' => 'Dashboard',
+                'Dashboard Pemotong' => 'Default',
+            ])
+            <!-- [ Main Content ] start -->
+            <div class="grid grid-cols-12 gap-x-6">
+
+                {{-- CARD 1: JOB AKTIF --}}
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card">
+                        <div class="card-header !pb-0 !border-b-0">
+                            <h5>Job Aktif</h5>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="font-light mb-0">{{ $jobAktif }}</h3>
+                            <p class="text-muted mt-2">Menunggu & proses potong</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-1 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 75%"></div>
+
+                {{-- CARD 2: SELESAI HARI INI --}}
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card">
+                        <div class="card-header !pb-0 !border-b-0">
+                            <h5>Selesai Hari Ini</h5>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="font-light mb-0">{{ $jobSelesaiHariIni }}</h3>
+                            <p class="text-muted mt-2">Job selesai hari ini</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                {{-- CARD 3: TOTAL TARGET --}}
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card">
+                        <div class="card-header !pb-0 !border-b-0">
+                            <h5>Total Target</h5>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="font-light mb-0">{{ $totalTarget }}</h3>
+                            <p class="text-muted mt-2">Target potong aktif</p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- CARD 4: HASIL HARI INI --}}
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card">
+                        <div class="card-header !pb-0 !border-b-0">
+                            <h5>Hasil Hari Ini</h5>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="font-light mb-0">{{ $totalHasilHariIni }}</h3>
+                            <p class="text-muted mt-2">Berhasil dipotong</p>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- TABLE JOB POTONG --}}
+                <div class="col-span-12 xl:col-span-12 md:col-span-12">
+                    <div class="col-span-12">
+                        <div class="card table-card">
+                            <div class="card-header">
+                                <h5>Job Potong Aktif</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Model</th>
+                                                <th>Target</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($jobHariIni as $job)
+                                                <tr>
+                                                    <td>{{ $job->modelPakaian->nama_model }}</td>
+                                                    <td>{{ $job->jumlah_target }}</td>
+                                                    <td>
+                                                        <span class="badge bg-warning">
+                                                            {{ ucfirst($job->status) }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" class="text-center"><a href="{{ route('pemotong.job-potong.index') }}">kerjakan</a></td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="4" class="text-center">
+                                                        Tidak ada job potong
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- [ Main Content ] end -->
             </div>
-          </div>
-          <div class="col-span-12 xl:col-span-4 md:col-span-6">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Monthly Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-down text-danger-500 text-[30px] mr-1.5"></i>
-                    $ 2.942.32
-                  </h3>
-                  <p class="mb-0">36%</p>
-                </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-2 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 35%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 xl:col-span-4">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Yearly Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-up text-success-500 text-[30px] mr-1.5"></i>
-                    $8.638.32
-                  </h3>
-                  <p class="mb-0">80%</p>
-                </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-1 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 80%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 xl:col-span-8 md:col-span-6">
-            <div class="card table-card">
-              <div class="card-header">
-                <h5>Recent Users</h5>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <tbody>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-1.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Isabella Christensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            11 MAY 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-2.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Mathilde Andersen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-danger text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            11 MAY 10:35
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-3.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Karla Sorensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            9 MAY 17:38
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-1.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Ida Jorgensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted f-w-300">
-                            <i class="fas fa-circle text-danger text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            19 MAY 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-2.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Albert Andersen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            21 July 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- [ Main Content ] end -->
-      </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/pemotong/footer-block') 
-    @include('layouts/pemotong/footer-js')
-  </body>
-  <!-- [Body] end -->
+        @include('layouts/pemotong/footer-block')
+        @include('layouts/pemotong/footer-js')
+</body>
+<!-- [Body] end -->
+
 </html>
