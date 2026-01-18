@@ -7,11 +7,15 @@ use App\Http\Controllers\Admin\JobProduksiController;
 use App\Http\Controllers\Admin\ModelPakaianController;
 use App\Http\Controllers\Admin\PemotongController;
 use App\Http\Controllers\Admin\PenjahitController;
+use App\Http\Controllers\Admin\ProdukJadiController;
 use App\Http\Controllers\Finishing\DashboardController as FinishingDashboard;
+use App\Http\Controllers\Finishing\JobFinishingController;
 use App\Http\Controllers\Pemotong\DashboardController as PemotongDashboard;
 use App\Http\Controllers\Pemotong\DataBahanBakuController;
 use App\Http\Controllers\Pemotong\JobPotongController;
 use App\Http\Controllers\Penjahit\DashboardController as PenjahitDashboard;
+use App\Http\Controllers\penjahit\DataModelPakaianController;
+use App\Http\Controllers\Penjahit\JobJahitController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +58,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('bahan-baku', BahanBakuController::class)->names('admin.bahan-baku');
         Route::resource('model-pakaian', ModelPakaianController::class)->names('admin.model-pakaian');
         Route::resource('job-produksi', JobProduksiController::class)->names('admin.job-produksi');
+        Route::get('produk-jadi', [ProdukJadiController::class, 'index'])->name('admin.produk-jadi');
+
     });
 
 Route::middleware(['auth', 'role:pemotong'])
@@ -72,8 +78,19 @@ Route::middleware(['auth', 'role:pemotong'])
 Route::middleware(['auth', 'role:penjahit'])
     ->prefix('penjahit')
     ->group(function () {
-        Route::get('/dashboard', [PenjahitDashboard::class, 'index'])
-            ->name('penjahit.dashboard');
+        Route::get('/dashboard', [PenjahitDashboard::class, 'index'])->name('penjahit.dashboard');
+        Route::resource('data-model-pakaian', DataModelPakaianController::class)->names('penjahit.data-model-pakaian');
+        Route::get('/job-jahit', [JobJahitController::class, 'index'])
+            ->name('penjahit.job-jahit.index');
+
+        Route::post('/job-jahit/{job}/mulai', [JobJahitController::class, 'mulai'])
+            ->name('penjahit.job-jahit.mulai');
+
+        Route::post('/job-jahit/{job}/selesai', [JobJahitController::class, 'selesai'])
+            ->name('penjahit.job-jahit.selesai');
+
+        Route::get('/riwayat-jahit', [JobJahitController::class, 'riwayat'])
+            ->name('penjahit.job-jahit.riwayat');
     });
 
 Route::middleware(['auth', 'role:finishing'])
@@ -81,6 +98,14 @@ Route::middleware(['auth', 'role:finishing'])
     ->group(function () {
         Route::get('/dashboard', [FinishingDashboard::class, 'index'])
             ->name('finishing.dashboard');
+        Route::get('/job-finishing', [JobFinishingController::class, 'index'])
+            ->name('finishing.job-finishing.index');
+
+        Route::post('/job-finishing/{job}/selesai', [JobFinishingController::class, 'selesai'])
+            ->name('finishing.job-finishing.selesai');
+
+        Route::get('/riwayat-finishing', [JobFinishingController::class, 'riwayat'])
+            ->name('finishing.job-finishing.riwayat');
     });
 
 require __DIR__ . '/auth.php';

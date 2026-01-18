@@ -23,77 +23,85 @@
                         <h5 class="mb-0 font-medium">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.job-produksi.index') }}">Job Produksi</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.job-produksi.index') }}">Job Produksi</a>
+                        </li>
                         <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
                     </ul>
                 </div>
             </div>
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Data Produksi</h5>
-                    <a href="{{ route('admin.job-produksi.create') }}" class="btn btn-primary">
-                        Tambah Produksi
-                    </a>
-                </div>
+            <div class="col-span-12 xl:col-span-8 md:col-span-6">
+                <div class="card table-card">
+                    <div class="card-header flex justify-between items-center">
+                        <h5 class="mb-0">Data Produksi</h5>
 
-                <div class="card-body">
-                    <x-alert />
-                    <div class="table-responsive">
-                        <table id="datatable" class="table table-striped table-bordered nowrap">
-                            <thead>
-                                <tr>
-                                    <th>Model Pakaian</th>
-                                    <th>Bahan Baku</th>
-                                    <th>Target Produksi (jumlah)</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $item)
+                        <a href="{{ route('admin.job-produksi.create') }}" class="btn btn-primary btn-sm">
+                            Tambah Produksi
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <x-alert />
+                        <div class="table-responsive">
+                            <table id="datatable" class="table table-striped table-bordered nowrap">
+                                <thead>
                                     <tr>
-                                        <td>{{ $item->modelPakaian->nama_model }}</td>
-                                        <td>{{ $item->bahanBaku->nama_bahan }}</td>
-                                        <td>{{ $item->jumlah_target }}</td>
-                                        <td>
-                                            <span
-                                                class="badge
-                                @if ($item->status == 'proses') bg-warning
-                                @elseif($item->status == 'selesai') bg-success
-                                @else bg-secondary @endif">
-                                                {{ ucfirst($item->status) }}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('admin.job-produksi.destroy', $item->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                            <a href="{{ route('admin.job-produksi.edit', $item->id) }}"
-                                                class="btn btn-primary btn-sm">
-                                                Edit
-                                            </a>
-                                                <button class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('Hapus data produksi?')">
-                                                    Hapus
-                                                </button>
-                                            </form>
-                                        </td>
+                                        <th>Model Pakaian</th>
+                                        <th>Bahan Baku</th>
+                                        <th>Target Produksi (jumlah)</th>
+                                        <th>Status</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $item)
+                                        <tr>
+                                            <td>{{ $item->modelPakaian->nama_model }}</td>
+                                            <td>{{ $item->bahanBaku->nama_bahan }}</td>
+                                            <td>{{ $item->jumlah_target }}</td>
+                                            <td>
+                                                <span
+                                                    class="pc-badge
+                                                    @if ($item->status == 'menunggu') pc-badge-secondary
+                                                    @elseif($item->status == 'dipotong') pc-badge-warning
+                                                    @elseif($item->status == 'dijahit') pc-badge-info
+                                                    @elseif($item->status == 'finishing') pc-badge-primary
+                                                    @elseif($item->status == 'selesai') pc-badge-success @endif">
+                                                    {{ ucfirst($item->status) }}
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                @if ($item->status == 'menunggu')
+                                                    <form action="{{ route('admin.job-produksi.destroy', $item->id) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a href="{{ route('admin.job-produksi.edit', $item->id) }}"
+                                                            class="btn btn-primary btn-sm">
+                                                            Edit
+                                                        </a>
+                                                        <button class="btn btn-danger btn-sm"
+                                                            onclick="return confirm('Hapus data produksi?')">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+                <!-- [ Main Content ] end -->
             </div>
-            <!-- [ Main Content ] end -->
         </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/admin/footer-block')
-    @include('layouts/admin/footer-js')
+        <!-- [ Main Content ] end -->
+        @include('layouts/admin/footer-block')
+        @include('layouts/admin/footer-js')
 </body>
 <!-- [Body] end -->
 

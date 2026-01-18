@@ -13,7 +13,7 @@ class JobProduksi extends Model
         'bahan_baku_id',
         'jumlah_target',
         'kebutuhan_bahan_total',
-        'status'
+        'status',
     ];
 
     public function modelPakaian()

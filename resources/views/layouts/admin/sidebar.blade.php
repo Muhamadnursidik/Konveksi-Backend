@@ -68,19 +68,13 @@
                         <span class="pc-mtext">Data Produksi</span>
                     </a>
                 </li>
-                {{-- <li class="pc-item pc-hasmenu">
-                    <a href="../elements/bc_typography.html" class="pc-link">
-                        <span class="pc-micon"><i class="bi bi-clipboard-pulse"></i></i></span>
-                        <span class="pc-mtext">Monitoring Produksi</span>
-                    </a>
-                </li> --}}
 
                 <li class="pc-item pc-caption">
                     <label>Produk Jadi</label>
                     <i data-feather="sidebar"></i>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="../elements/bc_typography.html" class="pc-link">
+                    <a href="{{ route('admin.produk-jadi') }}" class="pc-link">
                         <span class="pc-micon"><i class="bi bi-box-seam"></i></span>
                         <span class="pc-mtext">Stok Produk Jadi</span>
                     </a>

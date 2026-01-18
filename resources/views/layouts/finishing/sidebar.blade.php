@@ -35,22 +35,22 @@
                     <label>Menu</label>
                     <i data-feather="feather"></i>
                 </li>
-                <li class="pc-item pc-hasmenu">
+                {{-- <li class="pc-item pc-hasmenu">
                     <a href="{{ route('pemotong.data-bahan-baku.index') }}" class="pc-link">
                         <span class="pc-micon"> <i class="bi bi-boxes"></i></i></span>
                         <span class="pc-mtext">Data Bahan Baku</span>
                     </a>
-                </li>
+                </li> --}}
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('pemotong.job-potong.index') }}" class="pc-link">
-                        <span class="pc-micon"><i class="feather icon-scissors"></i></span>
-                        <span class="pc-mtext">Job Potong</span>
+                    <a href="{{ route('finishing.job-finishing.index') }}" class="pc-link">
+                        <span class="pc-micon"><i class="feather icon-package"></i></span>
+                        <span class="pc-mtext">Job Finishing</span>
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('pemotong.job-potong.riwayat') }}" class="pc-link">
+                    <a href="{{ route('finishing.job-finishing.riwayat') }}" class="pc-link">
                         <span class="pc-micon"><i class="feather icon-clock"></i></span>
-                        <span class="pc-mtext">Riwayat Potong</span>
+                        <span class="pc-mtext">Riwayat Finishing</span>
                     </a>
                 </li>
             </ul>

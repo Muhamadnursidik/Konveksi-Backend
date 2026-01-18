@@ -36,21 +36,21 @@
                     <i data-feather="feather"></i>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('pemotong.data-bahan-baku.index') }}" class="pc-link">
+                    <a href="{{ route('penjahit.data-model-pakaian.index') }}" class="pc-link">
                         <span class="pc-micon"> <i class="bi bi-boxes"></i></i></span>
-                        <span class="pc-mtext">Data Bahan Baku</span>
+                        <span class="pc-mtext">Data Model Pakaian</span>
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('pemotong.job-potong.index') }}" class="pc-link">
+                    <a href="{{ route('penjahit.job-jahit.index') }}" class="pc-link">
                         <span class="pc-micon"><i class="feather icon-scissors"></i></span>
-                        <span class="pc-mtext">Job Potong</span>
+                        <span class="pc-mtext">Job Jahit</span>
                     </a>
                 </li>
                 <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('pemotong.job-potong.riwayat') }}" class="pc-link">
+                    <a href="{{ route('penjahit.job-jahit.riwayat') }}" class="pc-link">
                         <span class="pc-micon"><i class="feather icon-clock"></i></span>
-                        <span class="pc-mtext">Riwayat Potong</span>
+                        <span class="pc-mtext">Riwayat Jahit</span>
                     </a>
                 </li>
             </ul>

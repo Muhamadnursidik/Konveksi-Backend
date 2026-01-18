@@ -3,15 +3,15 @@
 <!-- [Head] start -->
 
 <head>
-    @include('layouts/admin/head-page-meta', ['title' => 'Home'])
-    @include('layouts/admin/head-css')
+    @include('layouts/penjahit/head-page-meta', ['title' => 'Home'])
+    @include('layouts/penjahit/head-css')
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
 
 <body>
-    @include('layouts/admin/sidebar')
-    @include('layouts/admin/navbar')
+    @include('layouts/penjahit/sidebar')
+    @include('layouts/penjahit/navbar')
 
     <!-- [ Main Content ] start -->
     <div class="pc-container">
@@ -23,8 +23,7 @@
                         <h5 class="mb-0 font-medium">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.model-pakaian.index') }}">Model Pakaian</a>
-                        </li>
+                        <li class="breadcrumb-item"><a href="{{ route('penjahit.data-model-pakaian.index') }}">Data Model Pakaian</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
                     </ul>
                 </div>
@@ -35,10 +34,6 @@
                 <div class="card table-card">
                     <div class="card-header flex justify-between items-center">
                         <h5>Model Pakaian</h5>
-
-                        <a href="{{ route('admin.model-pakaian.create') }}" class="btn btn-primary btn-sm">
-                            Tambah
-                        </a>
                     </div>
 
                     <div class="card-body">
@@ -53,7 +48,6 @@
                                         <th>Ukuran</th>
                                         <th>Warna</th>
                                         <th>Kebutuhan (m)</th>
-                                        <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
 
@@ -65,23 +59,6 @@
                                             <td>{{ $row->ukuran }}</td>
                                             <td>{{ $row->warna }}</td>
                                             <td>{{ $row->kebutuhan_bahan }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.model-pakaian.edit', $row->id) }}"
-                                                    class="btn btn-sm bg-theme-bg-1 text-white">
-                                                    Edit
-                                                </a>
-
-                                                <form method="POST"
-                                                    action="{{ route('admin.model-pakaian.destroy', $row->id) }}"
-                                                    class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button onclick="return confirm('Yakin mau hapus?')"
-                                                        class="btn btn-sm btn-danger text-white border-0">
-                                                        Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
                                         </tr>
                                     @empty
                                         <tr>
@@ -96,13 +73,12 @@
                     </div>
                 </div>
             </div>
-
             <!-- [ Main Content ] end -->
         </div>
     </div>
     <!-- [ Main Content ] end -->
-    @include('layouts/admin/footer-block')
-    @include('layouts/admin/footer-js')
+    @include('layouts/penjahit/footer-block')
+    @include('layouts/penjahit/footer-js')
 </body>
 <!-- [Body] end -->
 

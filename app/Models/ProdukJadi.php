@@ -10,8 +10,6 @@ class ProdukJadi extends Model
 
     protected $fillable = [
         'job_produksi_id',
-        'model_pakaian_id',
-        'jumlah',
         'tanggal_selesai'
     ];
 

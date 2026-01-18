@@ -23,9 +23,8 @@
                         <h5 class="mb-0 font-medium">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('pemotong.data-bahan-baku.index') }}">Data Bahan
-                                Baku</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('pemotong.data-bahan-baku.index') }}">Data Bahan Baku</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0)">Riwayat</a></li>
                     </ul>
                 </div>
             </div>
@@ -58,7 +57,7 @@
                                                 <td>{{ $job->bahanBaku->nama_bahan }}</td>
                                                 <td>{{ $job->jumlah_target }}</td>
                                                 <td>
-                                                    <span class="badge bg-info">
+                                                    <span class="pc-badge pc-badge-info">
                                                         Selesai Dipotong
                                                     </span>
                                                 </td>

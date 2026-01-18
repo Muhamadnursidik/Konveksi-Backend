@@ -23,7 +23,7 @@
                         <h5 class="mb-0 font-medium">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.bahan-baku.index') }}">Bahan Baku</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.model-pakaian.index') }}">Model Pakaian</a></li>
                         <li class="breadcrumb-item"><a href="javascript: void(0)">Edit</a></li>
                     </ul>
                 </div>

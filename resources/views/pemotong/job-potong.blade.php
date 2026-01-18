@@ -59,7 +59,7 @@
                                                 <td>{{ $job->bahanBaku->nama_bahan }}</td>
                                                 <td>{{ $job->jumlah_target }}</td>
                                                 <td>
-                                                    <span class="badge bg-secondary">
+                                                    <span class="pc-badge pc-badge-secondary">
                                                         {{ $job->status }}
                                                     </span>
                                                 </td>

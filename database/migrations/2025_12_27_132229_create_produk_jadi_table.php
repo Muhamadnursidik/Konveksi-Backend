@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('produk_jadi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('job_produksi_id')->constrained('job_produksi');
-            $table->foreignId('model_pakaian_id')->constrained('model_pakaian');
-            $table->integer('jumlah');
             $table->date('tanggal_selesai');
             $table->timestamps();
         });
-
     }
 
     /**

@@ -1,201 +1,126 @@
 <!doctype html>
 <html lang="en">
-  <!-- [Head] start -->
+<!-- [Head] start -->
 
-  <head>
+<head>
     @include('layouts/penjahit/head-page-meta', ['title' => 'Home'])
     @include('layouts/penjahit/head-css')
-  </head>
-  <!-- [Head] end -->
-  <!-- [Body] Start -->
+</head>
+<!-- [Head] end -->
+<!-- [Body] Start -->
 
-  <body>
+<body>
     @include('layouts/penjahit/sidebar')
     @include('layouts/penjahit/navbar')
 
     <!-- [ Main Content ] start -->
     <div class="pc-container">
-      <div class="pc-content">
-        @include('layouts/penjahit/breadcrumb', ['breadcrumb-item' => 'Dashboard', 'Dashboard penjahit' => 'Default'])
-        <!-- [ Main Content ] start -->
-        <div class="grid grid-cols-12 gap-x-6">
-          <div class="col-span-12 xl:col-span-4 md:col-span-6">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Daily Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-up text-success-500 text-[30px] mr-1.5"></i>
-                    $ 249.95
-                  </h3>
-                  <p class="mb-0">67%</p>
+        <div class="pc-content">
+            @include('layouts/penjahit/breadcrumb', [
+                'breadcrumb-item' => 'Dashboard',
+                'Dashboard penjahit' => 'Default',
+            ])
+            <!-- [ Main Content ] start -->
+            <div class="grid grid-cols-12 gap-6">
+
+                {{-- CARD RINGKASAN --}}
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card bg-warning-50">
+                        <div class="card-body">
+                            <h6>Job Menunggu Dijahit</h6>
+                            <h4 class="mt-2">{{ $jobMenunggu }}</h4>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-1 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 75%"></div>
+
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card bg-primary-50">
+                        <div class="card-body">
+                            <h6>Target Jahit Hari Ini</h6>
+                            <h4 class="mt-2">{{ $targetHariIni }} pcs</h4>
+                        </div>
+                    </div>
                 </div>
-              </div>
+
+                <div class="col-span-12 xl:col-span-3 md:col-span-6">
+                    <div class="card bg-success-50">
+                        <div class="card-body">
+                            <h6>Selesai Hari Ini</h6>
+                            <h4 class="mt-2">{{ $selesaiHariIni }} pcs</h4>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- JOB AKTIF --}}
+                <div class="col-span-12 xl:col-span-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Job Siap Dijahit</h5>
+                        </div>
+                        <div class="card-body table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Model</th>
+                                        <th>Target</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($jobAktif as $job)
+                                        <tr>
+                                            <td>{{ $job->modelPakaian->nama_model }}</td>
+                                            <td>{{ $job->jumlah_target }}</td>
+                                            <td>
+                                                <a href="{{ route('penjahit.job-jahit.index') }}"
+                                                    class="btn btn-sm btn-primary">
+                                                    Kerjakan
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center text-muted">
+                                                Tidak ada job
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- RIWAYAT --}}
+                <div class="col-span-12 xl:col-span-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Riwayat Jahit Hari Ini</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="space-y-3">
+                                @forelse($riwayatHariIni as $job)
+                                    <li>
+                                        <strong>{{ $job->modelPakaian->nama_model }}</strong><br>
+                                        <small>{{ $job->jumlah_target }} pcs</small>
+                                    </li>
+                                @empty
+                                    <li class="text-muted">Belum ada</li>
+                                @endforelse
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-          </div>
-          <div class="col-span-12 xl:col-span-4 md:col-span-6">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Monthly Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-down text-danger-500 text-[30px] mr-1.5"></i>
-                    $ 2.942.32
-                  </h3>
-                  <p class="mb-0">36%</p>
-                </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-2 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 35%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 xl:col-span-4">
-            <div class="card">
-              <div class="card-header !pb-0 !border-b-0">
-                <h5>Yearly Sales</h5>
-              </div>
-              <div class="card-body">
-                <div class="flex items-center justify-between gap-3 flex-wrap">
-                  <h3 class="font-light flex items-center mb-0">
-                    <i class="feather icon-arrow-up text-success-500 text-[30px] mr-1.5"></i>
-                    $8.638.32
-                  </h3>
-                  <p class="mb-0">80%</p>
-                </div>
-                <div class="w-full bg-theme-bodybg rounded-lg h-1.5 mt-6 dark:bg-themedark-bodybg">
-                  <div class="bg-theme-bg-1 h-full rounded-lg shadow-[0_10px_20px_0_rgba(0,0,0,0.3)]" role="progressbar"
-                    style="width: 80%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 xl:col-span-8 md:col-span-6">
-            <div class="card table-card">
-              <div class="card-header">
-                <h5>Recent Users</h5>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <tbody>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-1.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Isabella Christensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            11 MAY 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-2.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Mathilde Andersen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-danger text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            11 MAY 10:35
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-3.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Karla Sorensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            9 MAY 17:38
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-1.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Ida Jorgensen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted f-w-300">
-                            <i class="fas fa-circle text-danger text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            19 MAY 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                      <tr class="unread">
-                        <td>
-                          <img class="rounded-full max-w-10" style="width: 40px" src="../assets/images/user/avatar-2.jpg" alt="activity-user" />
-                        </td>
-                        <td>
-                          <h6 class="mb-1">Albert Andersen</h6>
-                          <p class="m-0">Lorem Ipsum is simply dummy text of…</p>
-                        </td>
-                        <td>
-                          <h6 class="text-muted">
-                            <i class="fas fa-circle text-success text-[10px] ltr:mr-4 rtl:ml-4"></i>
-                            21 July 12:56
-                          </h6>
-                        </td>
-                        <td>
-                          <a href="#!" class="badge bg-theme-bg-2 text-white text-[12px] mx-2">Reject</a>
-                          <a href="#!" class="badge bg-theme-bg-1 text-white text-[12px]">Approve</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+
+            <!-- [ Main Content ] end -->
         </div>
-        <!-- [ Main Content ] end -->
-      </div>
     </div>
     <!-- [ Main Content ] end -->
-    @include('layouts/penjahit/footer-block') 
+    @include('layouts/penjahit/footer-block')
     @include('layouts/penjahit/footer-js')
-  </body>
-  <!-- [Body] end -->
+</body>
+<!-- [Body] end -->
+
 </html>

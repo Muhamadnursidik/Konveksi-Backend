@@ -98,13 +98,10 @@
                                                     <td>{{ $job->modelPakaian->nama_model }}</td>
                                                     <td>{{ $job->jumlah_target }}</td>
                                                     <td>
-                                                        <span class="badge bg-warning">
+                                                        <span class="pc-badge pc-badge-warning">
                                                             {{ ucfirst($job->status) }}
                                                         </span>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3" class="text-center"><a href="{{ route('pemotong.job-potong.index') }}">kerjakan</a></td>
                                                 </tr>
                                             @empty
                                                 <tr>
@@ -113,6 +110,9 @@
                                                     </td>
                                                 </tr>
                                             @endforelse
+                                                <tr>
+                                                    <td colspan="3" class="text-center"><a href="{{ route('pemotong.job-potong.index') }}">kerjakan</a></td>
+                                                </tr>
                                         </tbody>
                                     </table>
                                 </div>
