@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BahanBakuSeeder::class,
             ModelPakaianSeeder::class,
+            JobProduksiSeeder::class,
         ]);
     }
 }

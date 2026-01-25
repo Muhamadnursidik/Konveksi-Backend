@@ -59,6 +59,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('model-pakaian', ModelPakaianController::class)->names('admin.model-pakaian');
         Route::resource('job-produksi', JobProduksiController::class)->names('admin.job-produksi');
         Route::get('produk-jadi', [ProdukJadiController::class, 'index'])->name('admin.produk-jadi');
+        Route::post('job-produksi/{job}/acc-pemotongan',[JobProduksiController::class, 'accPemotongan'])->name('admin.job-produksi.acc-pemotongan');
+        Route::post('job-produksi/{job}/acc-penjahitan',[JobProduksiController::class, 'accPenjahitan'])->name('admin.job-produksi.acc-penjahitan');
+        Route::post('job-produksi/{job}/acc-finishing',[JobProduksiController::class, 'accFinishing'])->name('admin.job-produksi.acc-finishing');
 
     });
 

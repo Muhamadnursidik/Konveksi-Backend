@@ -61,8 +61,7 @@
                                         <tr>
                                             <td>
                                                 @if ($row->photo)
-                                                    <img src="{{ asset('storage/' . $row->photo) }}" width="40" class="rounded-circle"
-                                                        alt="{{ $row->name }}">
+                                                    <img src="{{ asset('storage/' . $row->photo) }}" width="40" class="rounded-circle" alt="{{ $row->name }}">
                                                 @else
                                                     -
                                                 @endif

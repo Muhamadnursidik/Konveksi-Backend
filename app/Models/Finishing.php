@@ -10,10 +10,11 @@ class Finishing extends Model
 
     protected $fillable = [
         'job_produksi_id',
-        'user_id',
-        'qc_status',
-        'status',
-        'catatan'
+        'pemotong_id',
+        'penjahit_id',
+        'finishing_id',
+        'foto_bukti',
+        'status', // pending | acc
     ];
 
     public function jobProduksi()
@@ -21,8 +22,18 @@ class Finishing extends Model
         return $this->belongsTo(JobProduksi::class);
     }
 
-    public function user()
+    public function finishing()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'finishing_id');
+    }
+
+    public function penjahit()
+    {
+        return $this->belongsTo(User::class, 'penjahit_id');
+    }
+
+    public function pemotong()
+    {
+        return $this->belongsTo(User::class, 'pemotong_id');
     }
 }

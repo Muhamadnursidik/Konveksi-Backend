@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pemotongan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('job_produksi_id')->constrained('job_produksi');
-            $table->foreignId('user_id')->constrained('users'); // pemotong
-            $table->enum('status', ['proses', 'selesai'])->default('proses');
-            $table->text('catatan')->nullable();
+            $table->foreignId('pemotong_id')->constrained('users');
+            $table->string('foto_bukti');
+            $table->enum('status', ['pending', 'dipotong'])->default('pending');
             $table->timestamps();
         });
 

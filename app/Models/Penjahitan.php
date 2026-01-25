@@ -10,9 +10,10 @@ class Penjahitan extends Model
 
     protected $fillable = [
         'job_produksi_id',
-        'user_id',
-        'status',
-        'catatan'
+        'pemotong_id',
+        'penjahit_id',
+        'foto_bukti',
+        'status', // pending | approved
     ];
 
     public function jobProduksi()
@@ -22,6 +23,11 @@ class Penjahitan extends Model
 
     public function penjahit()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'penjahit_id');
+    }
+
+    public function pemotong()
+    {
+        return $this->belongsTo(User::class, 'pemotong_id');
     }
 }

@@ -24,6 +24,9 @@ return new class extends Migration
                 'finishing',
                 'selesai',
             ])->default('menunggu');
+            $table->foreignId('pemotong_id')->nullable()->constrained('users');
+            $table->foreignId('penjahit_id')->nullable()->constrained('users');
+            $table->foreignId('finishing_id')->nullable()->constrained('users');
             $table->timestamps();
         });
 

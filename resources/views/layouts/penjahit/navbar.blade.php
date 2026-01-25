@@ -214,11 +214,10 @@
                         <div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500">
                             <div class="flex mb-1 items-center">
                                 <div class="shrink-0">
-                                    <img src="../assets/images/user/avatar-2.jpg" alt="user-image"
-                                        class="w-10 rounded-full" />
+                                    <img src="{{ asset('storage/' . Auth::user()->photo) }}" class="w-10 rounded-full" />
                                 </div>
                                 <div class="grow ms-3">
-                                    <h6 class="mb-1 text-white">{{ Auth::user()->name }} 🖖</h6>
+                                    <h6 class="mb-1 text-white">{{ Auth::user()->name }} </h6>
                                     <span class="text-white">{{ Auth::user()->email }}</span>
                                 </div>
                             </div>

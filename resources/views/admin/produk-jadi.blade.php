@@ -84,7 +84,7 @@
                                                 </td>
 
                                                 <td>
-                                                    <span class="badge bg-success">
+                                                    <span class="pc-badge pc-badge-success">
                                                         Selesai
                                                     </span>
                                                 </td>

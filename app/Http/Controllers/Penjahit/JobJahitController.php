@@ -4,51 +4,73 @@ namespace App\Http\Controllers\Penjahit;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobProduksi;
+use App\Models\Penjahitan;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobJahitController extends Controller
 {
+    /**
+     * Job yang siap dijahit
+     */
     public function index()
     {
-        $jobs = JobProduksi::with('modelPakaian')
+        $jobs = JobProduksi::with([
+                'modelPakaian',
+                'pemotongan.pemotong'
+            ])
             ->where('status', 'dipotong')
+            ->whereDoesntHave('penjahitan') // belum dijahit
             ->orderBy('updated_at')
             ->get();
 
         return view('penjahit.job.index', compact('jobs'));
     }
 
-    public function mulai(JobProduksi $job)
+    /**
+     * Submit hasil jahit + bukti
+     */
+    public function selesai(Request $request, JobProduksi $job)
     {
         if ($job->status !== 'dipotong') {
-            return back()->with('error', 'Job tidak bisa dikerjakan');
+            abort(403, 'Job tidak bisa dijahit');
         }
 
-        // Optional kalau mau tracking
-        $job->update([
-            'status' => 'dipotong' // tetap, cuma penanda mulai
-        ]);
-
-        return back()->with('success', 'Job mulai dijahit');
-    }
-
-    public function selesai(JobProduksi $job)
-    {
-        if ($job->status !== 'dipotong') {
-            return back()->with('error', 'Job tidak valid');
+        if ($job->penjahitan) {
+            return back()->with('error', 'Job ini sudah dijahit');
         }
 
-        $job->update([
-            'status' => 'dijahit'
+        $request->validate([
+            'bukti_jahit' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        return back()->with('success', 'Job selesai dijahit');
+        $path = $request->file('bukti_jahit')
+            ->store('bukti/penjahitan', 'public');
+
+        Penjahitan::create([
+            'job_produksi_id' => $job->id,
+            'pemotong_id'     => $job->pemotongan->pemotong_id,
+            'penjahit_id'     => Auth::id(),
+            'foto_bukti'      => $path,
+            'status'          => 'pending',
+        ]);
+
+        return back()->with(
+            'success',
+            'Jahitan selesai, menunggu ACC admin'
+        );
     }
 
+    /**
+     * Riwayat jahit milik penjahit login
+     */
     public function riwayat()
     {
-        $jobs = JobProduksi::with('modelPakaian')
-            ->where('status', 'dijahit')
-            ->latest()
+        $jobs = Penjahitan::with([
+                'jobProduksi.modelPakaian'
+            ])
+            ->where('penjahit_id', Auth::id())
+            ->orderByDesc('created_at')
             ->get();
 
         return view('penjahit.job.riwayat', compact('jobs'));

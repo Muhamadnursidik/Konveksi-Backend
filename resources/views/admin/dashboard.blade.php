@@ -98,12 +98,12 @@
                                 <td>{{ $job->modelPakaian->nama_model }}</td>
                                 <td>{{ $job->jumlah_target }}</td>
                                 <td>
-                                    <span class="badge
-                                        @if($job->status=='menunggu') bg-secondary
-                                        @elseif($job->status=='dipotong') bg-info
-                                        @elseif($job->status=='dijahit') bg-warning
-                                        @elseif($job->status=='finishing') bg-primary
-                                        @else bg-success @endif
+                                    <span class="pc-badge
+                                        @if($job->status=='menunggu') pc-badge-secondary
+                                        @elseif($job->status=='dipotong') pc-badge-info
+                                        @elseif($job->status=='dijahit') pc-badge-warning
+                                        @elseif($job->status=='finishing') pc-badge-primary
+                                        @else pc-badge-success @endif
                                     ">
                                         {{ ucfirst($job->status) }}
                                     </span>

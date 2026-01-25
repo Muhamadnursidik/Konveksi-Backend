@@ -61,7 +61,7 @@
 
                                 <div class="mb-2">
                                     <label>Foto</label>
-                                    <input name="photo" type="file" class="form-control">
+                                    <input name="photo" type="file" class="form-control" enctype="multipart/form-data" accept="image/*">
                                 </div>
                             </div>
 

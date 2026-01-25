@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('finishing', function (Blueprint $table) {
             $table->id();
             $table->foreignId('job_produksi_id')->constrained('job_produksi');
-            $table->foreignId('user_id')->constrained('users'); // finishing
-            $table->enum('qc_status', ['lulus', 'tidak_lulus']);
-            $table->enum('status', ['finishing', 'packing', 'siap_jadi'])->default('finishing');
-            $table->text('catatan')->nullable();
+            $table->foreignId('pemotong_id')->constrained('users');
+            $table->foreignId('penjahit_id')->constrained('users');
+            $table->foreignId('finishing_id')->constrained('users');
+            $table->string('foto_bukti');
+            $table->enum('status', ['pending', 'selesai'])->default('pending');
             $table->timestamps();
         });
 
