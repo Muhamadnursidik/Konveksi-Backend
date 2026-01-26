@@ -74,6 +74,12 @@ class ModelPakaianController extends Controller
 
     public function destroy($id)
     {
+        $model = ModelPakaian::findOrFail($id);
+
+        if ($model->jobProduksi()->exists()) {
+            return back()->with('errors', 'Model pakaian tidak bisa dihapus karena masih digunakan di job produksi');
+        }
+
         ModelPakaian::destroy($id);
 
         return redirect()

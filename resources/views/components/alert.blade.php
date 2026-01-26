@@ -6,12 +6,8 @@
 @endif
 
 {{-- ALERT ERROR VALIDASI --}}
-@if ($errors->any())
-    <div style="background:#f8d7da; padding:10px; margin-bottom:10px;">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+@if (session('errors'))
+    <div style="background:#F0404F; padding:10px; margin-bottom:10px; color:#ffff;">
+        {{ session('errors') }}
     </div>
 @endif

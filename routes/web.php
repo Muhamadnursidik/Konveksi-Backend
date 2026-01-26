@@ -82,7 +82,7 @@ Route::middleware(['auth', 'role:penjahit'])
     ->prefix('penjahit')
     ->group(function () {
         Route::get('/dashboard', [PenjahitDashboard::class, 'index'])->name('penjahit.dashboard');
-        Route::resource('data-model-pakaian', DataModelPakaianController::class)->names('penjahit.data-model-pakaian');
+        // Route::resource('data-model-pakaian', DataModelPakaianController::class)->names('penjahit.data-model-pakaian');
         Route::get('/job-jahit', [JobJahitController::class, 'index'])
             ->name('penjahit.job-jahit.index');
 

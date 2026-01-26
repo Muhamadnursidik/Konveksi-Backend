@@ -57,6 +57,12 @@ class BahanBakuController extends Controller
 
     public function destroy($id)
     {
+        $bahan = BahanBaku::findOrFail($id);
+
+        if ($bahan->jobProduksi()->exists()) {
+            return back()->with('errors', 'Bahan baku tidak bisa dihapus karena masih digunakan di job produksi');
+        }
+
         BahanBaku::destroy($id);
         return back()->with('success', 'Bahan baku berhasil dihapus');
     }

@@ -19,4 +19,9 @@ class BahanBaku extends Model
     {
         return $this->hasMany(PenggunaanBahan::class);
     }
+
+    public function jobProduksi()
+    {
+        return $this->hasMany(JobProduksi::class);
+    }
 }
