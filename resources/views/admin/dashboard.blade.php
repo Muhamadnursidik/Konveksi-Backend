@@ -35,7 +35,7 @@
 
     {{-- JOB AKTIF --}}
     <div class="col-span-12 md:col-span-6 xl:col-span-3">
-        <div class="card bg-warning-500 text-black">
+        <div class="card bg-theme-bg-1 text-black">
             <div class="card-body flex items-center justify-between">
                 <div>
                     <p class="mb-1 text-black/70">Job Aktif</p>
