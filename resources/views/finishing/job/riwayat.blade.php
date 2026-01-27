@@ -47,8 +47,8 @@
                         <tbody>
                             @foreach ($jobs as $job)
                                 <tr>
-                                    <td>{{ $job->modelPakaian->nama_model }}</td>
-                                    <td>{{ $job->jumlah_target }}</td>
+                                    <td>{{ $job->jobProduksi->modelPakaian->nama_model }}</td>
+                                    <td>{{ $job->jobProduksi->jumlah_target }}</td>
                                     <td>{{ $job->updated_at->format('d-m-Y H:i') }}</td>
                                 </tr>
                             @endforeach

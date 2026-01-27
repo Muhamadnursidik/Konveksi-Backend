@@ -49,8 +49,8 @@
                         <tbody>
                             @foreach ($jobs as $job)
                                 <tr>
-                                    <td>{{ $job->modelPakaian->nama_model }}</td>
-                                    <td>{{ $job->jumlah_target }}</td>
+                                    <td>{{ $job->jobProduksi->modelPakaian->nama_model }}</td>
+                                    <td>{{ $job->jobProduksi->jumlah_target }}</td>
                                     <td>
                                         <span class="pc-badge pc-badge-success">Selesai Jahit</span>
                                     </td>

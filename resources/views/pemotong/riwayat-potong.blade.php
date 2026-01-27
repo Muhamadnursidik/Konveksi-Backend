@@ -53,9 +53,9 @@
                                     <tbody>
                                         @forelse($jobs as $job)
                                             <tr>
-                                                <td>{{ $job->modelPakaian->nama_model }}</td>
-                                                <td>{{ $job->bahanBaku->nama_bahan }}</td>
-                                                <td>{{ $job->jumlah_target }}</td>
+                                                <td>{{ $job->jobProduksi->modelPakaian->nama_model }}</td>
+                                                <td>{{ $job->jobProduksi->bahanBaku->nama_bahan }}</td>
+                                                <td>{{ $job->jobProduksi->jumlah_target }}</td>
                                                 <td>
                                                     <span class="pc-badge pc-badge-info">
                                                         Selesai Dipotong

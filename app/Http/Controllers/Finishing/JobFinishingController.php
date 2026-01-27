@@ -53,7 +53,7 @@ class JobFinishingController extends Controller
 
     public function riwayat()
     {
-        $finishing = Finishing::with([
+        $jobs = Finishing::with([
             'jobProduksi.modelPakaian',
             'pemotong',
             'penjahit',
@@ -63,6 +63,6 @@ class JobFinishingController extends Controller
         ->latest()
         ->get();
 
-        return view('finishing.job.riwayat', compact('finishing'));
+        return view('finishing.job.riwayat', compact('jobs'));
     }
 }

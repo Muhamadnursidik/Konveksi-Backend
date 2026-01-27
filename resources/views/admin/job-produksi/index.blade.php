@@ -13,8 +13,36 @@
     <div class="pc-container">
         <div class="pc-content">
 
-            <div class="page-header mb-4">
-                <h5 class="mb-0">Job Produksi</h5>
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="page-header-title">
+                        <h5 class="mb-0 font-medium">Master Data</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.job-produksi.index') }}">Job Produksi</a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+
+            <!-- HEADER -->
+            <div class="col-span-12">
+                <div class="card">
+                    <div class="card-body flex justify-between items-center">
+                        <div>
+                            <h4 class="mb-1">Job Produksi</h4>
+                            <p class="text-muted text-sm">
+                                Daftar job produksi yang sedang berjalan
+                            </p>
+                        </div>
+                        <span class="badge bg-success">
+                            Total: {{ $data->count() }}
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <div class="card table-card">
@@ -83,11 +111,10 @@
                                         {{-- BUKTI POTONG --}}
                                         <td class="text-center">
                                             @if ($item->pemotongan?->foto_bukti)
-                                                <button class="btn btn-sm btn-secondary" data-bs-toggle="modal"
-                                                    data-bs-target="#fotoModal"
-                                                    data-foto="{{ asset('storage/' . $item->pemotongan->foto_bukti) }}">
+                                                <a href="{{ asset('storage/' . $item->pemotongan->foto_bukti) }}"
+                                                    target="_blank" class="btn btn-sm btn-secondary">
                                                     Lihat
-                                                </button>
+                                                </a>
                                             @else
                                                 <span class="text-muted">-</span>
                                             @endif
@@ -140,7 +167,6 @@
                                                         ACC Potong
                                                     </button>
                                                 </form>
-
                                             @elseif ($item->status == 'menunggu')
                                                 <form action="{{ route('admin.job-produksi.destroy', $item->id) }}"
                                                     method="POST" class="d-inline">
@@ -192,37 +218,8 @@
     </div>
 </body>
 
-{{-- MODAL FOTO BUKTI POTONG --}}
-@foreach ($data as $item)
-    @if ($item->pemotongan?->foto_bukti)
-        <div class="modal fade" id="fotoModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Foto Bukti Pemotongan</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
-                    </div>
-
-                    <div class="modal-body text-center">
-                        <img id="fotoModalImg" class="img-fluid rounded">
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-@endforeach
-
 @include('layouts/admin/footer-block')
 @include('layouts/admin/footer-js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const modal = document.getElementById('fotoModal')
-    modal.addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget
-        const foto = button.getAttribute('data-foto')
-        document.getElementById('fotoModalImg').src = foto
-    })
-</script>
 
 </html>
