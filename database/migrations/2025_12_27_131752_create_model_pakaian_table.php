@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ukuran');
             $table->string('warna');
             $table->decimal('kebutuhan_bahan', 10, 2); // meter
+            $table->string('foto_model')->nullable();
             $table->timestamps();
         });
 

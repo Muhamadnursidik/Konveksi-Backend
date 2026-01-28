@@ -26,10 +26,16 @@ class BahanBakuController extends Controller
             'nama_bahan'  => 'required',
             'warna'       => 'required',
             'stok_meter'  => 'required|numeric',
-            'keterangan'  => 'nullable'
+            'keterangan'  => 'nullable',
+            'foto'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        BahanBaku::create($request->all());
+        $bahanBaku = BahanBaku::create($request->all());
+
+        if ($request->hasFile('foto')) {
+            $bahanBaku->foto = $request->file('foto')->store('bahan_baku', 'public');
+            $bahanBaku->save();
+        }
 
         return redirect()->route('admin.bahan-baku.index')->with('success', 'Bahan baku berhasil ditambahkan');
     }
@@ -47,10 +53,16 @@ class BahanBakuController extends Controller
             'nama_bahan'  => 'required',
             'warna'       => 'required',
             'stok_meter'  => 'required|numeric',
-            'keterangan'  => 'nullable'
+            'keterangan'  => 'nullable',
+            'foto'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        BahanBaku::findOrFail($id)->update($request->all());
+        $bahanBaku = BahanBaku::findOrFail($id)->update($request->all());
+
+        if ($request->hasFile('foto')) {
+            $bahanBaku->foto = $request->file('foto')->store('bahan_baku', 'public');
+            $bahanBaku->save();
+        }
 
         return redirect()->route('admin.bahan-baku.index')->with('success', 'Bahan baku berhasil diperbarui');
     }
@@ -60,7 +72,7 @@ class BahanBakuController extends Controller
         $bahan = BahanBaku::findOrFail($id);
 
         if ($bahan->jobProduksi()->exists()) {
-            return back()->with('errors', 'Bahan baku tidak bisa dihapus karena masih digunakan di job produksi');
+            return back()->with('error', 'Bahan baku tidak bisa dihapus karena masih digunakan di job produksi');
         }
 
         BahanBaku::destroy($id);

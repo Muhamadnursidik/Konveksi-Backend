@@ -1,102 +1,160 @@
-<!doctype html>
-<html lang="en">
-<!-- [Head] start -->
-
-<head>
-    @include('layouts/admin/head-page-meta', ['title' => 'Home'])
-    @include('layouts/admin/head-css')
-</head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
+@include('layouts.admin.head-page', ['title' => 'Bahan Baku'])
 
 <body>
-    @include('layouts/admin/sidebar')
-    @include('layouts/admin/navbar')
+    {{-- Sidebar --}}
+    @include('layouts.admin.sidebar')
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-        <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
+    {{-- Navbar --}}
+    @include('layouts.admin.navbar')
+
+    <main class="nxl-container">
+        <div class="nxl-content">
+
+            {{-- Page Header --}}
             <div class="page-header">
-                <div class="page-block">
+                <div class="page-header-left d-flex align-items-center">
                     <div class="page-header-title">
-                        <h5 class="mb-0 font-medium">Master Data</h5>
+                        <h5 class="m-b-10">Master Data</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.bahan-baku.index') }}">Bahan Baku</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('admin.bahan-baku.index') }}">Bahan Baku</a>
+                        </li>
+                        <li class="breadcrumb-item">Index</li>
                     </ul>
                 </div>
             </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
-            <div class="col-span-12 xl:col-span-8 md:col-span-6">
-                <div class="card table-card">
-                    <div class="card-header flex justify-between items-center">
-                        <h5>Data Bahan Baku</h5>
-                        
-                        <a href="{{ route('admin.bahan-baku.create') }}" class="btn btn-primary btn-sm">
-                            Tambah
-                        </a>
-                    </div>
-                    
-                    <div class="card-body">
-                        <x-alert />
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Warna</th>
-                                        <th>Stok (Meter)</th>
-                                        <th>Keterangan</th>
-                                        <th class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse ($data as $row)
-                                        <tr>
-                                            <td>{{ $row->nama_bahan }}</td>
-                                            <td>{{ $row->warna }}</td>
-                                            <td>{{ $row->stok_meter }}</td>
-                                            <td>{{ $row->keterangan ?? '-' }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.bahan-baku.edit', $row->id) }}"class="btn btn-sm bg-theme-bg-1 text-white">
-                                                    Edit
-                                                </a>
 
-                                                <form method="POST"
-                                                    action="{{ route('admin.bahan-baku.destroy', $row->id) }}"
-                                                    class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" onclick="return confirm('Yakin mau hapus?')" class="btn btn-sm btn-danger text-white">
-                                                        Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center text-muted">
-                                                Data kosong
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+            {{-- Main Content --}}
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card stretch stretch-full">
+
+                            {{-- Card Header --}}
+                            <div class="card-header">
+                                <h5 class="card-title">Data Bahan Baku</h5>
+
+                                <div class="card-header-action">
+                                    <a href="{{ route('admin.bahan-baku.create') }}" class="btn btn-sm btn-primary">
+                                        Tambah
+                                    </a>
+                                </div>
+                            </div>
+
+                            {{-- Card Body --}}
+                            <div class="card-body custom-card-action p-0">
+                                <x-alert />
+
+                                <div class="table-responsive">
+                                    <table id="datatable-model" class="table table-hover mb-0 align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Foto Bahan</th>
+                                                <th>Nama</th>
+                                                <th>Warna</th>
+                                                <th>Stok (Meter)</th>
+                                                <th>Keterangan</th>
+                                                <th class="text-end">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($data as $row)
+                                                <tr>
+                                                    <td>
+                                                        @if ($row->foto)
+                                                            <div class="avatar-image avatar-lg rounded">
+                                                                <img class="img-fluid"
+                                                                    src="{{ asset('storage/' . $row->foto) }}"
+                                                                    alt="">
+                                                            </div>
+                                                        @else
+                                                            <img id="preview-image"
+                                                                src="{{ asset('assets/images/placeholder.png') }}"
+                                                                class="avatar-image avatar-lg rounded" alt="">
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex flex-column">
+                                                            <span class="fw-semibold">{{ $row->nama_bahan }}</span>
+                                                            <span class="fs-12 text-muted">
+                                                                ID: {{ $row->id }}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="badge bg-soft-primary text-primary">
+                                                            {{ $row->warna }}
+                                                        </span>
+                                                    </td>
+
+                                                    <td class="fw-bold">
+                                                        {{ $row->stok_meter }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ $row->keterangan ?? '-' }}
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        <div class="hstack gap-2 justify-content-end">
+
+                                                            <a href="{{ route('admin.bahan-baku.edit', $row->id) }}"
+                                                                class="avatar-text avatar-md">
+                                                                <i class="feather-edit"></i>
+                                                            </a>
+
+                                                            <form
+                                                                action="{{ route('admin.bahan-baku.destroy', $row->id) }}"
+                                                                method="POST" class="d-inline form-delete">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="avatar-text avatar-md bg-soft-danger text-danger border-0">
+                                                                    <i class="feather-trash-2"></i>
+                                                                </button>
+                                                            </form>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="5" class="text-center text-muted py-4">
+                                                        Data kosong
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            {{-- Card Footer (Pagination kalau ada) --}}
+                            @if (method_exists($data, 'links'))
+                                <div class="card-footer">
+                                    {{ $data->links() }}
+                                </div>
+                            @endif
+
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <!-- [ Main Content ] end -->
         </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/admin/footer-block')
-    @include('layouts/admin/footer-js')
-</body>
-<!-- [Body] end -->
 
-</html>
+        {{-- Footer --}}
+        <footer class="footer" style="margin-top:200px">
+            <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+                <span>Copyright ©</span>
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+            </p>
+        </footer>
+    </main>
+
+    @include('layouts.admin.footer')

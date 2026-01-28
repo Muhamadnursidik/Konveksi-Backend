@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('warna');
             $table->decimal('stok_meter', 10, 2);
             $table->text('keterangan')->nullable();
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }

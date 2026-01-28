@@ -33,15 +33,15 @@ class ModelPakaianController extends Controller
             'ukuran'          => 'required',
             'warna'           => 'required',
             'kebutuhan_bahan' => 'required|numeric',
+            'foto_model'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        ModelPakaian::create([
-            'nama_model'      => $request->nama_model,
-            'kategori'        => $request->kategori,
-            'ukuran'          => $request->ukuran,
-            'warna'           => $request->warna,
-            'kebutuhan_bahan' => $request->kebutuhan_bahan,
-        ]);
+        $modelPakaian = ModelPakaian::create($request->all());
+
+        if ($request->hasFile('foto_model')) {
+            $modelPakaian->foto_model = $request->file('foto_model')->store('model_pakaian', 'public');
+            $modelPakaian->save();
+        }
 
         return redirect()
             ->route('admin.model-pakaian.index')
@@ -63,9 +63,15 @@ class ModelPakaianController extends Controller
             'ukuran'          => 'required',
             'warna'           => 'required',
             'kebutuhan_bahan' => 'required|numeric',
+            'foto_model'      => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        ModelPakaian::findOrFail($id)->update($request->all());
+        $modelPakaian = ModelPakaian::findOrFail($id)->update($request->all());
+
+        if ($request->hasFile('foto_model')) {
+            $modelPakaian->foto_model = $request->file('foto_model')->store('model_pakaian', 'public');
+            $modelPakaian->save();
+        }
 
         return redirect()
             ->route('admin.model-pakaian.index')
@@ -77,7 +83,7 @@ class ModelPakaianController extends Controller
         $model = ModelPakaian::findOrFail($id);
 
         if ($model->jobProduksi()->exists()) {
-            return back()->with('errors', 'Model pakaian tidak bisa dihapus karena masih digunakan di job produksi');
+            return back()->with('error', 'Model pakaian tidak bisa dihapus karena masih digunakan di job produksi');
         }
 
         ModelPakaian::destroy($id);

@@ -12,7 +12,8 @@ class BahanBaku extends Model
         'nama_bahan',
         'warna',
         'stok_meter',
-        'keterangan'
+        'keterangan',
+        'foto'
     ];
 
     public function penggunaanBahan()

@@ -13,7 +13,8 @@ class ModelPakaian extends Model
         'kategori',
         'ukuran',
         'warna',
-        'kebutuhan_bahan'
+        'kebutuhan_bahan',
+        'foto_model'
     ];
 
     public function jobProduksi()

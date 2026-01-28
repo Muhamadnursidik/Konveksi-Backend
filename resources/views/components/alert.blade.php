@@ -1,13 +1,25 @@
-{{-- ALERT SUKSES --}}
+@once
+@push('scripts')
 @if (session('success'))
-    <div style="background:#d4edda; padding:10px; margin-bottom:10px;">
-        {{ session('success') }}
-    </div>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil',
+    text: @json(session('success')),
+    timer: 2000,
+    showConfirmButton: false
+});
+</script>
 @endif
 
-{{-- ALERT ERROR VALIDASI --}}
-@if (session('errors'))
-    <div style="background:#F0404F; padding:10px; margin-bottom:10px; color:#ffff;">
-        {{ session('errors') }}
-    </div>
+@if (session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal',
+    text: @json(session('error'))
+});
+</script>
 @endif
+@endpush
+@endonce

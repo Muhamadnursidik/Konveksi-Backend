@@ -16,6 +16,7 @@ class ModelPakaianSeeder extends Seeder
                 'ukuran' => 'L',
                 'warna' => 'Hitam',
                 'kebutuhan_bahan' => 1.5,
+                'foto_model' => 'users/penjahit.jpg'
             ],
             [
                 'nama_model' => 'Kaos Polos',
@@ -23,6 +24,7 @@ class ModelPakaianSeeder extends Seeder
                 'ukuran' => 'M',
                 'warna' => 'Putih',
                 'kebutuhan_bahan' => 1.2,
+                'foto_model' => 'users/penjahit.jpg'
             ],
             [
                 'nama_model' => 'Jaket Outdoor',
@@ -30,6 +32,7 @@ class ModelPakaianSeeder extends Seeder
                 'ukuran' => 'XL',
                 'warna' => 'Hijau',
                 'kebutuhan_bahan' => 2.0,
+                'foto_model' => 'users/penjahit.jpg'
             ],
             [
                 'nama_model' => 'Kemeja Formal',
@@ -37,6 +40,7 @@ class ModelPakaianSeeder extends Seeder
                 'ukuran' => 'L',
                 'warna' => 'Biru',
                 'kebutuhan_bahan' => 1.8,
+                'foto_model' => 'users/penjahit.jpg'
             ],
             [
                 'nama_model' => 'Sweater Rajut',
@@ -44,6 +48,7 @@ class ModelPakaianSeeder extends Seeder
                 'ukuran' => 'M',
                 'warna' => 'Abu-abu',
                 'kebutuhan_bahan' => 1.6,
+                'foto_model' => 'users/penjahit.jpg'
             ],
         ];
 
