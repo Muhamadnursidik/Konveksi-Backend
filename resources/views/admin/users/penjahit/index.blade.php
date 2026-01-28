@@ -1,120 +1,139 @@
-<!doctype html>
-<html lang="en">
-<!-- [Head] start -->
-
-<head>
-    @include('layouts/admin/head-page-meta', ['title' => 'Home'])
-    @include('layouts/admin/head-css')
-</head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
+@include('layouts.admin.head-page')
 
 <body>
-    @include('layouts/admin/sidebar')
-    @include('layouts/admin/navbar')
+    <!--! [Start] Navigation Manu !-->
+    @include('layouts.admin.sidebar')
+    <!--! [End]  Navigation Manu !-->
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-        <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
+    <!--! [Start] Header !-->
+    @include('layouts.admin.navbar')
+    <!--! [End] Header !-->
+    <!--! [Start] Main Content !-->
+    <main class="nxl-container">
+        <div class="nxl-content">
+            <!-- [ page-header ] start -->
             <div class="page-header">
-                <div class="page-block">
+                <div class="page-header-left d-flex align-items-center">
                     <div class="page-header-title">
-                        <h5 class="mb-0 font-medium">Master Data</h5>
+                        <h5 class="m-b-10">User</h5>
                     </div>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.penjahit.index') }}">Daftar Penjahit</a>
-                        </li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.penjahit.index') }}">Penjahit</a></li>
+                        <li class="breadcrumb-item">Index</li>
                     </ul>
                 </div>
             </div>
-            <!-- [ breadcrumb ] end -->
+            <!-- [ page-header ] end -->
+
             <!-- [ Main Content ] start -->
-            <div class="col-span-12">
-                <div class="card table-card">
-                    <div class="card-header flex justify-between items-center">
-                        <h5>Data Akun Penjahit</h5>
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card stretch stretch-full">
+                            <div class="card-header">
+                                <h5 class="card-title">Data Akun Penjahit</h5>
 
-                        <a href="{{ route('admin.penjahit.create') }}" class="btn btn-primary btn-sm">
-                            Tambah
-                        </a>
-                    </div>
+                                <div class="card-header-action">
+                                    <a href="{{ route('admin.penjahit.create') }}" class="btn btn-sm btn-primary">
+                                        Tambah
+                                    </a>
+                                </div>
+                            </div>
 
-                    <div class="card-body">
-                        <x-alert />
+                            <div class="card-body custom-card-action p-0">
+                                <x-alert />
 
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>foto</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th class="text-center">Aksi</th>
-                                    </tr>
-                                </thead>
+                                <div class="table-responsive">
+                                    <table id="datatable-model" class="table table-hover mb-0 align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Foto</th>
+                                                <th>Nama</th>
+                                                <th>Email</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
 
-                                <tbody>
-                                    @forelse ($users as $row)
-                                        <tr>
-                                            <td>
-                                                @if ($row->photo)
-                                                    <img src="{{ asset('storage/' . $row->photo) }}" width="40" class="rounded-circle" alt="{{ $row->name }}">
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>{{ $row->name }}</td>
-                                            <td>{{ $row->email }}</td>
-                                            <td>
-                                                @if ($row->is_active)
-                                                    <span class="badge btn-success">Aktif</span>
-                                                @else
-                                                    <span class="badge btn-danger">Nonaktif</span>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('admin.penjahit.edit', $row->id) }}"
-                                                    class="btn btn-sm bg-theme-bg-1 text-white">
-                                                    Edit
-                                                </a>
+                                        <tbody>
+                                            @forelse ($users as $row)
+                                                <tr>
+                                                    <td>
+                                                        <div class="avatar-image">
+                                                            @if ($row->photo)
+                                                                <img src="{{ asset('storage/' . $row->photo) }}"
+                                                                    class="img-fluid rounded-circle" width="40">
+                                                            @else
+                                                                <span class="text-muted">-</span>
+                                                            @endif
+                                                        </div>
+                                                    </td>
 
-                                                <form method="POST"
-                                                    action="{{ route('admin.penjahit.destroy', $row->id) }}"
-                                                    class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
+                                                    <td>
+                                                        <span class="d-block fw-semibold">
+                                                            {{ $row->name }}
+                                                        </span>
+                                                    </td>
 
-                                                    <button onclick="return confirm('Yakin mau hapus akun ini?')"
-                                                        class="btn btn-sm btn-danger text-white border-0">
-                                                        Hapus
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="5" class="text-center text-muted">
-                                                Data akun penjahit masih kosong
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                                    <td>{{ $row->email }}</td>
+
+                                                    <td>
+                                                        @if ($row->is_active)
+                                                            <span class="badge bg-soft-success text-success">
+                                                                Aktif
+                                                            </span>
+                                                        @else
+                                                            <span class="badge bg-soft-danger text-danger">
+                                                                Nonaktif
+                                                            </span>
+                                                        @endif
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        <div class="hstack gap-2 justify-content-end">
+                                                        <a href="{{ route('admin.penjahit.edit', $row->id) }}"
+                                                                class="avatar-text avatar-md">
+                                                                <i class="feather-edit"></i>
+                                                            </a>
+
+                                                            <form
+                                                                action="{{ route('admin.penjahit.destroy', $row->id) }}"
+                                                                method="POST" class="d-inline form-delete">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="avatar-text avatar-md bg-soft-danger text-danger border-0">
+                                                                    <i class="feather-trash-2"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="5" class="text-center text-muted">
+                                                        Data akun penjahit masih kosong
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- [ Main Content ] end -->
-        </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/admin/footer-block')
-    @include('layouts/admin/footer-js')
-</body>
-<!-- [Body] end -->
-
-</html>
+            {{-- Footer --}}
+            <footer class="footer" style="margin-top:200px">
+                <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+                    <span>Copyright ©</span>
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                </p>
+            </footer>
+    </main>
+    <!--! [End] Main Content !-->
+    @include('layouts.admin.footer')

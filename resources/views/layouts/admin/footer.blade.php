@@ -341,4 +341,34 @@
         });
     </script>
 
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    document.getElementById('preview-image').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('password-input');
+            const icon = document.getElementById('toggle-icon');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('feather-eye');
+                icon.classList.add('feather-eye-off');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('feather-eye-off');
+                icon.classList.add('feather-eye');
+            }
+        }
+    </script>
+
+
     </html>

@@ -28,7 +28,24 @@ class PenjahitController extends Controller
             'email'    => 'required|email|unique:users',
             'password' => 'required|min:6',
             'photo'    => 'nullable|image|mimes:jpg,png|max:2048',
-        ]);
+        ],
+        [
+            'name.required'     => 'Nama wajib diisi.',
+            'name.string'       => 'Nama harus berupa teks.',
+            'name.max'          => 'Nama maksimal 100 karakter.',
+
+            'email.required'    => 'Email wajib diisi.',
+            'email.email'       => 'Format email tidak valid.',
+            'email.unique'      => 'Email sudah terdaftar.',
+
+            'password.required' => 'Password wajib diisi.',
+            'password.min'      => 'Password minimal 6 karakter.',
+
+            'photo.image'       => 'File harus berupa gambar.',
+            'photo.mimes'       => 'Foto harus berformat JPG atau PNG.',
+            'photo.max'         => 'Ukuran foto maksimal 2MB.',
+        ]
+        );
 
         $data['role'] = 'penjahit';
 
@@ -57,7 +74,21 @@ class PenjahitController extends Controller
             'name'  => 'required|string|max:100',
             'email' => 'required|email|unique:users,email,' . $id,
             'photo' => 'nullable|image|mimes:jpg,png|max:2048',
-        ]);
+        ],
+        [
+            'name.required'  => 'Nama wajib diisi.',
+            'name.string'    => 'Nama harus berupa teks.',
+            'name.max'       => 'Nama maksimal 100 karakter.',
+
+            'email.required' => 'Email wajib diisi.',
+            'email.email'    => 'Format email tidak valid.',
+            'email.unique'   => 'Email sudah terdaftar.',
+
+            'photo.image'    => 'File harus berupa gambar.',
+            'photo.mimes'    => 'Foto harus berformat JPG atau PNG.',
+            'photo.max'      => 'Ukuran foto maksimal 2MB.',
+        ]
+        );
 
         if ($request->hasFile('photo')) {
             if ($user->photo) {
