@@ -1,100 +1,126 @@
-<!doctype html>
-<html lang="en">
-<head>
-    @include('layouts/pemotong/head-page-meta', ['title' => 'Job Pemotongan'])
-    @include('layouts/pemotong/head-css')
-</head>
+@include('layouts.pemotong.head-page')
 
-<body>
-@include('layouts/pemotong/sidebar')
-@include('layouts/pemotong/navbar')
+<!--! [Start] Navigation Manu !-->
+@include('layouts.pemotong.sidebar')
+<!--! [End]  Navigation Manu !-->
 
-<div class="pc-container">
-    <div class="pc-content">
+<!--! [Start] Header !-->
+@include('layouts.pemotong.navbar')
+<!--! [End] Header !-->
+<!--! [Start] Main Content !-->
+<main class="nxl-container">
+    <div class="nxl-content">
 
-        <!-- breadcrumb -->
-        <div class="page-header mb-3">
-            <div class="page-block">
+        {{-- PAGE HEADER --}}
+        <div class="page-header">
+            <div class="page-header-left d-flex align-items-center">
                 <div class="page-header-title">
-                    <h5 class="mb-0 font-medium">Job Pemotongan</h5>
+                    <h5 class="m-b-10">Job Pemotongan</h5>
                 </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">Pemotong</li>
+                    <li class="breadcrumb-item active">Job Potong</li>
+                </ul>
             </div>
         </div>
 
-        <div class="card table-card">
-            <div class="card-header">
-                <h5>Job Menunggu Dipotong</h5>
-            </div>
+        {{-- MAIN CONTENT --}}
+        <div class="main-content">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="card stretch stretch-full">
 
-            <div class="card-body">
-                <x-alert />
+                        <div class="card-header">
+                            <h5 class="card-title">Job Menunggu Dipotong</h5>
+                        </div>
 
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead>
-                            <tr>
-                                <th>Model</th>
-                                <th>Bahan Baku</th>
-                                <th>Target</th>
-                                <th>Status</th>
-                                <th>Upload Bukti</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
+                        <div class="card-body custom-card-action p-0">
+                            <x-alert />
 
-                        <tbody>
-                        @forelse($jobs as $job)
-                            <tr>
-                                <td>{{ $job->modelPakaian->nama_model }}</td>
-                                <td>{{ $job->bahanBaku->nama_bahan }}</td>
-                                <td>{{ $job->jumlah_target }}</td>
+                            <div class="table-responsive">
+                                <table id="datatable-model" class="table table-hover align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Bahan Baku</th>
+                                            <th>Target</th>
+                                            <th>Status</th>
+                                            <th>Upload Bukti</th>
+                                            <th class="text-end">Aksi</th>
+                                        </tr>
+                                    </thead>
 
-                                <td>
-                                    <span class="pc-badge pc-badge-secondary">
-                                        Menunggu
-                                    </span>
-                                </td>
+                                    <tbody>
+                                        @forelse($jobs as $job)
+                                            <tr>
+                                                <td>{{ $job->modelPakaian->nama_model }}</td>
+                                                <td>{{ $job->bahanBaku->nama_bahan }}</td>
+                                                <td>{{ $job->jumlah_target }}</td>
 
-                                {{-- FORM UPLOAD --}}
-                                <td style="width:220px">
-                                    <form method="POST"
-                                          action="{{ route('pemotong.job-potong.selesai', $job->id) }}"
-                                          enctype="multipart/form-data">
-                                        @csrf
+                                                <td>
+                                                    <span class="badge bg-soft-warning text-warning">
+                                                        Menunggu
+                                                    </span>
+                                                </td>
 
-                                        <input type="file"
-                                               name="foto_bukti"
-                                               class="form-control form-control-sm"
-                                               accept="image/*"
-                                               required>
-                                </td>
+                                                {{-- FORM UPLOAD --}}
+                                                <td style="width:220px">
+                                                    <form method="POST"
+                                                        action="{{ route('pemotong.job-potong.selesai', $job->id) }}"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div
+                                                                class="wd-50 ht-50 position-relative overflow-hidden border rounded flex-shrink-0">
+                                                                <img id="preview-image"
+                                                                    src="{{ asset('assets/images/placeholder.png') }}"
+                                                                    class="img-fluid h-100 w-100 rounded"
+                                                                    alt="">
+                                                                <input type="file" name="foto_bukti"
+                                                                    class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
+                                                                    onchange="previewImage(this)" accept="image/*"
+                                                                    required>
+                                                            </div>
+                                                            <div class="fs-11 text-muted">
+                                                                Upload Bukti Potong <br>
+                                                                PNG / JPG / JPEG<br>
+                                                                Max 2MB
+                                                            </div>
+                                                        </div>
+                                                </td>
 
-                                <td>
-                                        <button class="btn btn-success btn-sm"
-                                                onclick="return confirm('Yakin pekerjaan sudah selesai?')">
-                                            Kirim Bukti
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center text-muted">
-                                    Tidak ada job menunggu pemotongan
-                                </td>
-                            </tr>
-                        @endforelse
-                        </tbody>
+                                                <td class="text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-sm bg-soft-success text-success border-0">
+                                                        <i class="feather-upload me-1"></i>
+                                                        Kirim Bukti
+                                                    </button>
+                                                    </form>
+                                                </td>
 
-                    </table>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">
+                                                    Tidak ada job menunggu pemotongan
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
 
     </div>
-</div>
+</main>
 
-@include('layouts/pemotong/footer-block')
-@include('layouts/pemotong/footer-js')
-</body>
-</html>
+<!--! [End] Main Content !-->
+
+<!--! [End] Main Content !-->
+@include('layouts.pemotong.footer')

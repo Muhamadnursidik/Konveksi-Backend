@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\penjahit;
+namespace App\Http\Controllers\Penjahit;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelPakaian;

@@ -1,60 +1,67 @@
-<!-- [ Pre-loader ] start -->
-<div class="loader-bg fixed inset-0 bg-white dark:bg-themedark-cardbg z-[1034]">
-    <div class="loader-track h-[5px] w-full inline-block absolute overflow-hidden top-0">
-        <div
-            class="loader-fill w-[300px] h-[5px] bg-primary-500 absolute top-0 left-0 animate-[hitZak_0.6s_ease-in-out_infinite_alternate]">
-        </div>
-    </div>
-</div>
-<!-- [ Pre-loader ] End -->
-<!-- [ Sidebar Menu ] start -->
-<nav class="pc-sidebar">
+<nav class="nxl-navigation">
     <div class="navbar-wrapper">
-        <div class="m-header flex items-center py-4 px-6 h-header-height">
-            <a href="{{ route('dashboard') }}" class="b-brand flex items-center gap-3">
-                <!-- ========   Change your logo from here   ============ -->
-                <img src="{{ asset('/assets/images/logo-white.svg') }}" class="img-fluid logo logo-lg" alt="logo" />
-                <img src="{{ asset('/assets/images/favicon.svg') }}" class="img-fluid logo logo-sm" alt="logo" />
+
+        <!-- HEADER / LOGO -->
+        <div class="m-header">
+            <a href="{{ route('dashboard') }}" class="b-brand">
+                <img src="{{ asset('assets/images/logo-full.png') }}" class="logo logo-lg"
+                    style="max-width: 100%; height: auto;" alt="logo">
+                <img src="{{ asset('assets/images/logo-abbr.png') }}" class="logo logo-sm" alt="logo">
             </a>
         </div>
-        <div class="navbar-content h-[calc(100vh_-_74px)] py-2.5">
-            <ul class="pc-navbar">
-                <li class="pc-item pc-caption">
+
+        <!-- MENU -->
+        <div class="navbar-content">
+            <ul class="nxl-navbar">
+
+                {{-- DASHBOARD --}}
+                <li class="nxl-item nxl-caption">
                     <label>Dashboard</label>
                 </li>
-                <li class="pc-item">
-                <li class="pc-item">
-                    <a href="{{ route('dashboard') }}" class="pc-link">
-                        <span class="pc-micon">
-                            <i data-feather="home"></i>
+                <li class="nxl-item">
+                    <a href="{{ route('dashboard') }}" class="nxl-link">
+                        <span class="nxl-micon">
+                            <i class="feather-home"></i>
                         </span>
-                        <span class="pc-mtext">Dashboard</span>
+                        <span class="nxl-mtext">Dashboard</span>
                     </a>
                 </li>
-                <li class="pc-item pc-caption">
+
+                {{-- MENU PENJAHIT --}}
+                <li class="nxl-item nxl-caption">
                     <label>Menu</label>
-                    <i data-feather="feather"></i>
                 </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('penjahit.data-model-pakaian.index') }}" class="pc-link">
-                        <span class="pc-micon"> <i class="bi bi-boxes"></i></i></span>
-                        <span class="pc-mtext">Data Model Pakaian</span>
+
+                {{-- DATA MODEL PAKAIAN --}}
+                <li class="nxl-item">
+                    <a href="{{ route('penjahit.data-model-pakaian.index') }}" class="nxl-link">
+                        <span class="nxl-micon">
+                            <i class="feather-box"></i>
+                        </span>
+                        <span class="nxl-mtext">Data Model Pakaian</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('penjahit.job-jahit.index') }}" class="pc-link">
-                        <span class="pc-micon"><i class="feather icon-scissors"></i></span>
-                        <span class="pc-mtext">Job Jahit</span>
+
+                {{-- JOB JAHIT --}}
+                <li class="nxl-item">
+                    <a href="{{ route('penjahit.job-jahit.index') }}" class="nxl-link">
+                        <span class="nxl-micon">
+                            <i class="feather-scissors"></i>
+                        </span>
+                        <span class="nxl-mtext">Job Jahit</span>
                     </a>
                 </li>
-                <li class="pc-item pc-hasmenu">
-                    <a href="{{ route('penjahit.job-jahit.riwayat') }}" class="pc-link">
-                        <span class="pc-micon"><i class="feather icon-clock"></i></span>
-                        <span class="pc-mtext">Riwayat Jahit</span>
+
+                {{-- RIWAYAT JAHIT --}}
+                <li class="nxl-item">
+                    <a href="{{ route('penjahit.job-jahit.riwayat') }}" class="nxl-link">
+                        <span class="nxl-micon">
+                            <i class="feather-clock"></i>
+                        </span>
+                        <span class="nxl-mtext">Riwayat Jahit</span>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<!-- [ Sidebar Menu ] end -->

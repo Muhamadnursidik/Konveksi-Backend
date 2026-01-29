@@ -49,7 +49,7 @@ class JobProduksiController extends Controller
             $kebutuhan = $model->kebutuhan_bahan * $request->jumlah_target;
 
             if ($bahan->stok_meter < $kebutuhan) {
-                abort(400, 'Stok bahan baku tidak mencukupi');
+                return back()->with('error', 'Stok bahan baku tidak mencukupi');
             }
 
             JobProduksi::create([

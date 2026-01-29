@@ -1,85 +1,104 @@
-<!doctype html>
-<html lang="en">
-<!-- [Head] start -->
+@include('layouts.penjahit.head-page')
 
-<head>
-    @include('layouts/penjahit/head-page-meta', ['title' => 'Home'])
-    @include('layouts/penjahit/head-css')
-</head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
+@include('layouts.penjahit.sidebar')
+@include('layouts.penjahit.navbar')
 
-<body>
-    @include('layouts/penjahit/sidebar')
-    @include('layouts/penjahit/navbar')
+<main class="nxl-container">
+    <div class="nxl-content">
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-        <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="page-header-title">
-                        <h5 class="mb-0 font-medium">Master Data</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('penjahit.data-model-pakaian.index') }}">Data Model Pakaian</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0)">Index</a></li>
-                    </ul>
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <div class="page-header-left d-flex align-items-center">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Penjahit</h5>
                 </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('penjahit.data-model-pakaian.index') }}">
+                            Data Model Pakaian
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
-            <div class="col-span-12">
-                <div class="card table-card">
-                    <div class="card-header flex justify-between items-center">
-                        <h5>Model Pakaian</h5>
-                    </div>
-
-                    <div class="card-body">
-                        <x-alert />
-
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Kategori</th>
-                                        <th>Ukuran</th>
-                                        <th>Warna</th>
-                                        <th>Kebutuhan (m)</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    @forelse ($data as $row)
-                                        <tr>
-                                            <td>{{ $row->nama_model }}</td>
-                                            <td>{{ $row->kategori }}</td>
-                                            <td>{{ $row->ukuran }}</td>
-                                            <td>{{ $row->warna }}</td>
-                                            <td>{{ $row->kebutuhan_bahan }}</td>
-                                        </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="6" class="text-center text-muted">
-                                                Data model pakaian kosong
-                                            </td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- [ Main Content ] end -->
         </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/penjahit/footer-block')
-    @include('layouts/penjahit/footer-js')
-</body>
-<!-- [Body] end -->
 
-</html>
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="row">
+
+                <div class="col-xxl-12">
+                    <div class="card stretch stretch-full">
+
+                        <!-- CARD HEADER -->
+                        <div class="card-header d-flex align-items-center gap-2">
+                            <h5 class="card-title mb-0">Data Model Pakaian</h5>
+                            <i class="feather-tag text-primary"></i>
+                        </div>
+
+                        <!-- CARD BODY -->
+                        <div class="card-body custom-card-action p-0">
+                            <x-alert />
+
+                            <div class="table-responsive">
+                                <table id="datatable-model"
+                                    class="table table-hover mb-0 align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Model</th>
+                                            <th>Kategori</th>
+                                            <th>Ukuran</th>
+                                            <th>Warna</th>
+                                            <th>Kebutuhan (m)</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @forelse ($data as $row)
+                                            <tr>
+                                                <td>
+                                                    <i class="feather-box me-1 text-muted"></i>
+                                                    {{ $row->nama_model }}
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{ $row->kategori }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {{ $row->ukuran }}
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-soft-primary text-primary">
+                                                        {{ $row->warna }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <i class="feather-bar-chart-2 me-1"></i>
+                                                    {{ $row->kebutuhan_bahan }}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="5"
+                                                    class="text-center text-muted py-4">
+                                                    <i class="feather-inbox d-block mb-2 fs-4"></i>
+                                                    Data model pakaian kosong
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+
+@include('layouts.penjahit.footer')

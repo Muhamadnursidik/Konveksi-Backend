@@ -90,6 +90,7 @@
                                                     </td>
 
                                                     <td class="fw-bold">
+                                                        <i class="feather-bar-chart-2 me-1"></i>
                                                         {{ $row->stok_meter }}
                                                     </td>
 

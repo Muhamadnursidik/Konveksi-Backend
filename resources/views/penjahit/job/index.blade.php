@@ -1,104 +1,113 @@
-<!doctype html>
-<html lang="en">
-<head>
-    @include('layouts/penjahit/head-page-meta', ['title' => 'Job Jahit'])
-    @include('layouts/penjahit/head-css')
-</head>
+@include('layouts.penjahit.head-page')
 
-<body>
-@include('layouts/penjahit/sidebar')
-@include('layouts/penjahit/navbar')
+@include('layouts.penjahit.sidebar')
+@include('layouts.penjahit.navbar')
 
-<div class="pc-container">
-    <div class="pc-content">
+<main class="nxl-container">
+    <div class="nxl-content">
 
-        <!-- breadcrumb -->
-        <div class="page-header mb-3">
-            <div class="page-block">
+        {{-- PAGE HEADER --}}
+        <div class="page-header">
+            <div class="page-header-left d-flex align-items-center">
                 <div class="page-header-title">
-                    <h5 class="mb-0 font-medium">Job Jahit</h5>
+                    <h5 class="m-b-10">Penjahit</h5>
                 </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">Job Jahit</li>
+                </ul>
             </div>
         </div>
 
-        <div class="card table-card">
-            <div class="card-header">
-                <h5>Job Menunggu Dijahit</h5>
-            </div>
+        {{-- MAIN CONTENT --}}
+        <div class="main-content">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="card stretch stretch-full">
 
-            <div class="card-body">
-                <x-alert />
+                        <div class="card-header">
+                            <h5 class="card-title">Job Menunggu Dijahit</h5>
+                        </div>
 
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>Target</th>
-                            <th>Pemotong</th>
-                            <th>Status</th>
-                            <th>Upload Bukti</th>
-                            <th>Aksi</th>
-                        </tr>
-                        </thead>
+                        <div class="card-body custom-card-action p-0">
+                            <x-alert />
 
-                        <tbody>
-                        @forelse($jobs as $job)
-                            <tr>
-                                <td>{{ $job->modelPakaian->nama_model }}</td>
-                                <td>{{ $job->jumlah_target }}</td>
+                            <div class="table-responsive">
+                                <table id="datatable-model" class="table table-hover align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Target</th>
+                                            <th>Pemotong</th>
+                                            <th>Status</th>
+                                            <th>Upload Bukti</th>
+                                            <th class="text-end">Aksi</th>
+                                        </tr>
+                                    </thead>
 
-                                <td>
-                                    {{ $job->pemotongan->pemotong->name ?? '-' }}
-                                </td>
+                                    <tbody>
+                                        @forelse($jobs as $job)
+                                            <tr>
+                                                <td>{{ $job->modelPakaian->nama_model }}</td>
+                                                <td>{{ $job->jumlah_target }}</td>
+                                                <td>{{ $job->pemotongan->pemotong->name ?? '-' }}</td>
 
-                                <td>
-                                    <span class="pc-badge pc-badge-warning">
-                                        Menunggu Jahit
-                                    </span>
-                                </td>
+                                                <td>
+                                                    <span class="badge bg-soft-warning text-warning">
+                                                        Menunggu
+                                                    </span>
+                                                </td>
 
-                                {{-- FORM UPLOAD --}}
-                                <td style="width:220px">
-                                    <form method="POST"
-                                          action="{{ route('penjahit.job-jahit.selesai', $job->id) }}"
-                                          enctype="multipart/form-data">
-                                        @csrf
+                                                {{-- FORM UPLOAD --}}
+                                                <td style="width:220px">
+                                                    <form method="POST"
+                                                        action="{{ route('penjahit.job-jahit.selesai', $job->id) }}"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div
+                                                                class="wd-50 ht-50 position-relative overflow-hidden border rounded flex-shrink-0">
+                                                                <img id="preview-image"
+                                                                    src="{{ asset('assets/images/placeholder.png') }}"
+                                                                    class="img-fluid h-100 w-100 rounded"
+                                                                    alt="">
+                                                                <input type="file" name="foto_bukti"
+                                                                    class="position-absolute top-0 start-0 w-100 h-100 opacity-0"
+                                                                    onchange="previewImage(this)" accept="image/*" required>
+                                                            </div>
+                                                            <div class="fs-11 text-muted">
+                                                                Upload Bukti Jahit <br>
+                                                                PNG / JPG / JPEG<br>
+                                                                Max 2MB
+                                                            </div>
+                                                        </div>
+                                                </td>
 
-                                        <input type="file"
-                                               name="bukti_jahit"
-                                               class="form-control form-control-sm"
-                                               accept="image/*"
-                                               required>
-                                </td>
+                                                <td class="text-end">
+                                                    <button type="submit"
+                                                        class="btn btn-sm bg-soft-success text-success border-0">
+                                                        <i class="feather-upload me-1"></i>
+                                                        Kirim Bukti
+                                                    </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="6" class="text-center text-muted">
+                                                    Tidak ada job jahit
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
 
-                                <td>
-                                        <button class="btn btn-success btn-sm"
-                                                onclick="return confirm('Yakin jahitan sudah selesai?')">
-                                            Kirim Bukti
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6"
-                                    class="text-center text-muted">
-                                    Tidak ada job jahit
-                                </td>
-                            </tr>
-                        @endforelse
-                        </tbody>
-
-                    </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
+</main>
 
-@include('layouts/penjahit/footer-block')
-@include('layouts/penjahit/footer-js')
-</body>
-</html>
+@include('layouts.penjahit.footer')

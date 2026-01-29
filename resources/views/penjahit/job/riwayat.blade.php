@@ -1,73 +1,77 @@
-<!doctype html>
-<html lang="en">
-<!-- [Head] start -->
+@include('layouts.penjahit.head-page')
 
-<head>
-    @include('layouts/penjahit/head-page-meta', ['title' => 'Home'])
-    @include('layouts/penjahit/head-css')
-</head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
+@include('layouts.penjahit.sidebar')
+@include('layouts.penjahit.navbar')
 
-<body>
-    @include('layouts/penjahit/sidebar')
-    @include('layouts/penjahit/navbar')
+<main class="nxl-container">
+    <div class="nxl-content">
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-        <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="page-header-title">
-                        <h5 class="mb-0 font-medium">Master Data</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('penjahit.data-model-pakaian.index') }}">Data Model
-                                Pakaian</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0)">Riwayat</a></li>
-                    </ul>
+        {{-- PAGE HEADER --}}
+        <div class="page-header">
+            <div class="page-header-left d-flex align-items-center">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Riwayat Job Jahit</h5>
                 </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">Penjahit</li>
+                    <li class="breadcrumb-item active">Riwayat</li>
+                </ul>
             </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
-            <div class="card">
-                <div class="card-header">
-                    <h5>Riwayat Jahit</h5>
-                </div>
-
-                <div class="card-body table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Model</th>
-                                <th>Jumlah</th>
-                                <th>Status</th>
-                                <th>Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($jobs as $job)
-                                <tr>
-                                    <td>{{ $job->jobProduksi->modelPakaian->nama_model }}</td>
-                                    <td>{{ $job->jobProduksi->jumlah_target }}</td>
-                                    <td>
-                                        <span class="pc-badge pc-badge-success">Selesai Jahit</span>
-                                    </td>
-                                    <td>{{ $job->updated_at->format('d-m-Y H:i') }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- [ Main Content ] end -->
         </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/penjahit/footer-block')
-    @include('layouts/penjahit/footer-js')
-</body>
-<!-- [Body] end -->
 
-</html>
+        {{-- MAIN CONTENT --}}
+        <div class="main-content">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="card stretch stretch-full">
+
+                        <div class="card-header">
+                            <h5 class="card-title">Riwayat Job Dijahit</h5>
+                        </div>
+
+                        <div class="card-body custom-card-action p-0">
+                            <div class="table-responsive">
+                                <table id="datatable-model" class="table table-hover align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Model</th>
+                                            <th>Target</th>
+                                            <th>Status</th>
+                                            <th>Waktu Selesai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($jobs as $job)
+                                            <tr>
+                                                <td>{{ $job->jobProduksi->modelPakaian->nama_model }}</td>
+                                                <td>{{ $job->jobProduksi->jumlah_target }}</td>
+                                                <td>
+                                                    <span class="badge bg-soft-success text-success">
+                                                        Selesai Dijahit
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {{ $job->updated_at->format('d M Y H:i') }}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">
+                                                    Belum ada riwayat jahit
+                                                </td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+@include('layouts.penjahit.footer')

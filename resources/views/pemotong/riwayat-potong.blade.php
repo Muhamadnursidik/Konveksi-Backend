@@ -1,46 +1,37 @@
-<!doctype html>
-<html lang="en">
-<!-- [Head] start -->
+@include('layouts.pemotong.head-page')
 
-<head>
-    @include('layouts/pemotong/head-page-meta', ['title' => 'Home'])
-    @include('layouts/pemotong/head-css')
-</head>
-<!-- [Head] end -->
-<!-- [Body] Start -->
+@include('layouts.pemotong.sidebar')
+@include('layouts.pemotong.navbar')
 
-<body>
-    @include('layouts/pemotong/sidebar')
-    @include('layouts/pemotong/navbar')
+<main class="nxl-container">
+    <div class="nxl-content">
 
-    <!-- [ Main Content ] start -->
-    <div class="pc-container">
-        <div class="pc-content">
-            <!-- [ breadcrumb ] start -->
-            <div class="page-header">
-                <div class="page-block">
-                    <div class="page-header-title">
-                        <h5 class="mb-0 font-medium">Master Data</h5>
-                    </div>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('pemotong.data-bahan-baku.index') }}">Data Bahan Baku</a></li>
-                        <li class="breadcrumb-item"><a href="javascript: void(0)">Riwayat</a></li>
-                    </ul>
+        {{-- PAGE HEADER --}}
+        <div class="page-header">
+            <div class="page-header-left d-flex align-items-center">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Riwayat Job Potong</h5>
                 </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">Pemotong</li>
+                    <li class="breadcrumb-item active">Riwayat</li>
+                </ul>
             </div>
-            <!-- [ breadcrumb ] end -->
-            <!-- [ Main Content ] start -->
-            <div class="grid grid-cols-12 gap-x-6">
+        </div>
 
-                <div class="col-span-12">
-                    <div class="card table-card">
+        {{-- MAIN CONTENT --}}
+        <div class="main-content">
+            <div class="row">
+                <div class="col-xxl-12">
+                    <div class="card stretch stretch-full">
+
                         <div class="card-header">
-                            <h5>Riwayat Job Dipotong</h5>
+                            <h5 class="card-title">Riwayat Job Dipotong</h5>
                         </div>
 
-                        <div class="card-body">
+                        <div class="card-body custom-card-action p-0">
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table id="datatable-model" class="table table-hover align-middle mb-0">
                                     <thead>
                                         <tr>
                                             <th>Model</th>
@@ -57,7 +48,7 @@
                                                 <td>{{ $job->jobProduksi->bahanBaku->nama_bahan }}</td>
                                                 <td>{{ $job->jobProduksi->jumlah_target }}</td>
                                                 <td>
-                                                    <span class="pc-badge pc-badge-info">
+                                                    <span class="badge bg-soft-success text-success">
                                                         Selesai Dipotong
                                                     </span>
                                                 </td>
@@ -67,7 +58,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="text-center text-muted">
+                                                <td colspan="5" class="text-center text-muted">
                                                     Belum ada riwayat potong
                                                 </td>
                                             </tr>
@@ -76,17 +67,13 @@
                                 </table>
                             </div>
                         </div>
+
                     </div>
                 </div>
-
             </div>
-            <!-- [ Main Content ] end -->
         </div>
-    </div>
-    <!-- [ Main Content ] end -->
-    @include('layouts/pemotong/footer-block')
-    @include('layouts/pemotong/footer-js')
-</body>
-<!-- [Body] end -->
 
-</html>
+    </div>
+</main>
+
+@include('layouts.pemotong.footer')

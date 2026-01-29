@@ -14,7 +14,7 @@ use App\Http\Controllers\Pemotong\DashboardController as PemotongDashboard;
 use App\Http\Controllers\Pemotong\DataBahanBakuController;
 use App\Http\Controllers\Pemotong\JobPotongController;
 use App\Http\Controllers\Penjahit\DashboardController as PenjahitDashboard;
-use App\Http\Controllers\penjahit\DataModelPakaianController;
+use App\Http\Controllers\Penjahit\DataModelPakaianController;
 use App\Http\Controllers\Penjahit\JobJahitController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -85,9 +85,6 @@ Route::middleware(['auth', 'role:penjahit'])
         Route::resource('data-model-pakaian', DataModelPakaianController::class)->names('penjahit.data-model-pakaian');
         Route::get('/job-jahit', [JobJahitController::class, 'index'])
             ->name('penjahit.job-jahit.index');
-
-        Route::post('/job-jahit/{job}/mulai', [JobJahitController::class, 'mulai'])
-            ->name('penjahit.job-jahit.mulai');
 
         Route::post('/job-jahit/{job}/selesai', [JobJahitController::class, 'selesai'])
             ->name('penjahit.job-jahit.selesai');

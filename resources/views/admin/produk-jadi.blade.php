@@ -1,115 +1,144 @@
-<!doctype html>
-<html lang="id">
-
-<head>
-    @include('layouts/admin/head-page-meta', ['title' => 'Dashboard Admin'])
-    @include('layouts/admin/head-css')
-</head>
+@include('layouts.admin.head-page')
 
 <body>
-    @include('layouts/admin/sidebar')
-    @include('layouts/admin/navbar')
+    <!--! [Start] Navigation Manu !-->
+    @include('layouts.admin.sidebar')
+    <!--! [End]  Navigation Manu !-->
 
-    <div class="pc-container">
-        <div class="pc-content">
+    <!--! [Start] Header !-->
+    @include('layouts.admin.navbar')
+    <!--! [End] Header !-->
+    <!--! [Start] Main Content !-->
+    <main class="nxl-container">
+        <div class="nxl-content">
+            <!-- [ page-header ] start -->
+            <div class="page-header">
+                <div class="page-header-left d-flex align-items-center">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Produk</h5>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('admin.produk-jadi') }}">Produk Jadi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- [ page-header ] end -->
 
-            @include('layouts/admin/breadcrumb', [
-                'breadcrumb-item' => 'Dashboard',
-                'Dashboard Admin' => 'Overview',
-            ])
+            <!-- [ Main Content ] start -->
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card stretch stretch-full">
 
-            {{-- Main Content --}}
-            <div class="grid grid-cols-12 gap-6">
-
-                <!-- HEADER -->
-                <div class="col-span-12">
-                    <div class="card">
-                        <div class="card-body flex justify-between items-center">
-                            <div>
-                                <h4 class="mb-1">Produk Jadi</h4>
-                                <p class="text-muted text-sm">
-                                    Daftar hasil produksi yang telah selesai
-                                </p>
+                            <div class="card-header">
+                                <h5 class="card-title">
+                                    Produk Jadi
+                                    <span class="badge bg-success ms-2">
+                                        Total: {{ $data->count() }}
+                                    </span>
+                                </h5>
                             </div>
-                            <span class="badge bg-success">
-                                Total: {{ $data->count() }}
-                            </span>
+
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Produk</th>
+                                                <th>Bahan</th>
+                                                <th>Jumlah</th>
+                                                <th>Tanggal Selesai</th>
+                                                <th>Status</th>
+                                                <th class="text-end">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($data as $item)
+                                                <tr>
+                                                    {{-- Produk --}}
+                                                    <td class="project-name-td">
+                                                        <div class="hstack gap-4">
+                                                            <div class="avatar-image border-0">
+                                                                <img src="{{ asset('storage/' . $item->jobProduksi->modelPakaian->foto_model) }}"
+                                                                    class="img-fluid" alt="Model">
+                                                            </div>
+                                                            <div>
+                                                                <span class="d-block fw-semibold">
+                                                                    {{ $item->jobProduksi->modelPakaian->nama_model }}
+                                                                </span>
+                                                                <p class="fs-12 text-muted mt-1 mb-0">
+                                                                    {{ $item->jobProduksi->modelPakaian->kategori }} |
+                                                                    {{ $item->jobProduksi->modelPakaian->ukuran }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+
+                                                    {{-- Bahan --}}
+                                                    <td>
+                                                        <span class="d-block">
+                                                            {{ $item->jobProduksi->bahanBaku->nama_bahan }}
+                                                        </span>
+                                                        <small class="text-muted">
+                                                            {{ $item->jobProduksi->bahanBaku->warna }}
+                                                        </small>
+                                                    </td>
+
+                                                    {{-- Jumlah --}}
+                                                    <td>
+                                                        {{ $item->jobProduksi->jumlah_target }}
+                                                    </td>
+
+                                                    {{-- Tanggal --}}
+                                                    <td>
+                                                        {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
+                                                    </td>
+
+                                                    {{-- Status --}}
+                                                    <td>
+                                                        <span class="badge bg-soft-success text-success">
+                                                            Selesai
+                                                        </span>
+                                                    </td>
+
+                                                    {{-- Aksi --}}
+                                                    <td class="text-end">
+                                                        <div class="hstack gap-2 justify-content-end">
+                                                            <a href="#" class="avatar-text avatar-md">
+                                                                <i class="feather feather-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-muted py-5">
+                                                        Belum ada produk jadi
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-
-                <!-- TABLE -->
-                <div class="col-span-12">
-                    <div class="card table-card">
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Model Pakaian</th>
-                                            <th>Bahan</th>
-                                            <th>Jumlah</th>
-                                            <th>Tanggal Selesai</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse ($data as $item)
-                                            <tr>
-                                                <td>
-                                                    <strong>
-                                                        {{ $item->jobProduksi->modelPakaian->nama_model }}
-                                                    </strong>
-                                                    <br>
-                                                    <small class="text-muted">
-                                                        {{ $item->jobProduksi->modelPakaian->kategori }} |
-                                                        {{ $item->jobProduksi->modelPakaian->ukuran }}
-                                                    </small>
-                                                </td>
-
-                                                <td>
-                                                    {{ $item->jobProduksi->bahanBaku->nama_bahan }}
-                                                    <br>
-                                                    <small class="text-muted">
-                                                        {{ $item->jobProduksi->bahanBaku->warna }}
-                                                    </small>
-                                                </td>
-
-                                                <td>
-                                                    {{ $item->jobProduksi->jumlah_target }}
-                                                </td>
-
-                                                <td>
-                                                    {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
-                                                </td>
-
-                                                <td>
-                                                    <span class="pc-badge pc-badge-success">
-                                                        Selesai
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="6" class="text-center text-muted py-6">
-                                                    Belum ada produk jadi
-                                                </td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
+            <!-- [ Main Content ] end -->
         </div>
-    </div>
-
-    @include('layouts/admin/footer-block')
-    @include('layouts/admin/footer-js')
-</body>
-
-</html>
+        <!-- [ Footer ] start -->
+        <footer class="footer" style="margin-top:500px">
+            <p class="fs-11 text-muted fw-medium text-uppercase mb-0 copyright">
+                <span>Copyright ©</span>
+                <script>
+                    document.write(new Date().getFullYear());
+                </script>
+            </p>
+        </footer>
+        <!-- [ Footer ] end -->
+    </main>
+    <!--! [End] Main Content !-->
+    @include('layouts.admin.footer')

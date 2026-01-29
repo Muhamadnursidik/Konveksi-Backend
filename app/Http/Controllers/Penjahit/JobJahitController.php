@@ -41,10 +41,17 @@ class JobJahitController extends Controller
         }
 
         $request->validate([
-            'bukti_jahit' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
+            'foto_bukti' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ],
+        [
+            'foto_bukti.required' => 'Bukti jahit wajib diisi.',
+            'foto_bukti.image'    => 'File harus berupa gambar.',
+            'foto_bukti.mimes'    => 'Bukti jahit harus berformat JPG atau PNG.',
+            'foto_bukti.max'      => 'Ukuran bukti jahit maksimal 2MB.',
+        ]
+        );
 
-        $path = $request->file('bukti_jahit')
+        $path = $request->file('foto_bukti')
             ->store('bukti/penjahitan', 'public');
 
         Penjahitan::create([

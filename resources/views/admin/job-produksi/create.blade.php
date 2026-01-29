@@ -34,6 +34,7 @@
                                 @csrf
 
                                 <div class="card-body personal-info">
+                                    <x-alert />
 
                                     {{-- Header --}}
                                     <div class="mb-4 d-flex align-items-center justify-content-between">
